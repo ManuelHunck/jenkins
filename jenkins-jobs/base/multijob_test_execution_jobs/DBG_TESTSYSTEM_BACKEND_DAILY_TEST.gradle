@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DBG_TESTSYSTEM_BACKEND_DAILY_TEST" {
+        "DBG_TESTSYSTEM_BACKEND_DAILY_TEST" {
             dsl {
                 description("""Purchasing and Processing incl Timejumps for all Products...
 				""")

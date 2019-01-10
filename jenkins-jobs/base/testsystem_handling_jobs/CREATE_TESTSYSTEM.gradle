@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_CREATE_TESTSYSTEM" {
+        "CREATE_TESTSYSTEM" {
             dsl {
                 description("""Job to create a test system
 				""")
@@ -33,5 +33,6 @@ jenkins {
                 }
             }
         }
+
 
     }

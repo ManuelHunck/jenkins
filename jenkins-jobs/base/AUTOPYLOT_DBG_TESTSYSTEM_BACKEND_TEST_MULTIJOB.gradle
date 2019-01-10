@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DBG_TESTSYSTEM_BACKEND_TEST_MULTIJOB" {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_BACKEND_TEST_MULTIJOB" {
             type "Multijob"
             dsl {
                 description("""Daily test execution for testing current cs master with cara live version for the backend and frontend(triggered at 07.00 UTC)..

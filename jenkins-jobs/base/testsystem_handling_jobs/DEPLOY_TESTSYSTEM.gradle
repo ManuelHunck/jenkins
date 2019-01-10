@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DEPLOY_TESTSYSTEM" {
+        "DEPLOY_TESTSYSTEM" {
             type "Multijob"
             dsl {
                 description("""Job to deploy a test system

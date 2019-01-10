@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DELETE_TESTSYSTEM" {
+        "DELETE_TESTSYSTEM" {
             dsl {
                 description("""Job to delete a test system
 				""")

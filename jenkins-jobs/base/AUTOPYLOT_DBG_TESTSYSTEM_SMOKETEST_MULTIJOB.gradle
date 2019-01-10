@@ -16,17 +16,17 @@ jenkins {
 
                     steps {
                        phase("Delete systems before creation to ensure there is nothing interrupting") {
-                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                 phaseJob("DELETE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                           }
                                  }
-                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                 phaseJob("DELETE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                           }
                                  }
-                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                 phaseJob("DELETE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest03-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                           }
@@ -34,20 +34,20 @@ jenkins {
                        }
 
                        phase("Test system creation") {
-                                 phaseJob("AUTOPYLOT_CREATE_TESTSYSTEM"){
+                                 phaseJob("CREATE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                                predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
                                           }
                                  }
-                                 phaseJob("AUTOPYLOT_CREATE_TESTSYSTEM"){
+                                 phaseJob("CREATE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                                predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
                                           }
 
                                  }
-                                 phaseJob("AUTOPYLOT_CREATE_TESTSYSTEM"){
+                                 phaseJob("CREATE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest03-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                                predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
@@ -56,21 +56,21 @@ jenkins {
                        }
 
                        phase("Test system deployment") {
-                                 phaseJob("AUTOPYLOT_DEPLOY_TESTSYSTEM"){
+                                 phaseJob("DEPLOY_TESTSYSTEM"){
                                             parameters{
                                               predefinedProp('TESTSYSTEM', 'app-smoketest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
                                               predefinedProp('VERSION_CARA', '$CARA')
                                             }
                                  }
-                                 phaseJob("AUTOPYLOT_DEPLOY_TESTSYSTEM"){
+                                 phaseJob("DEPLOY_TESTSYSTEM"){
                                             parameters{
                                               predefinedProp('TESTSYSTEM', 'app-smoketest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
                                               predefinedProp('VERSION_CARA', '$CARA')
                                             }
                                  }
-                                 phaseJob("AUTOPYLOT_DEPLOY_TESTSYSTEM"){
+                                 phaseJob("DEPLOY_TESTSYSTEM"){
                                             parameters{
                                               predefinedProp('TESTSYSTEM', 'app-smoketest03-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
@@ -81,17 +81,17 @@ jenkins {
 
                        phase("Test execution") {
                                  continuationCondition('SUCCESSFUL')
-                                 phaseJob("AUTOPYLOT_DBG_TESTSYSTEM_SMOKETEST_CYCLE_1"){
+                                 phaseJob("DBG_TESTSYSTEM_SMOKETEST_CYCLE_1"){
                                                parameters{
                                                  predefinedProp('TESTSYSTEM', 'app-smoketest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                                }
                                  }
-                                 phaseJob("AUTOPYLOT_DBG_TESTSYSTEM_SMOKETEST_CYCLE_2"){
+                                 phaseJob("DBG_TESTSYSTEM_SMOKETEST_CYCLE_2"){
                                                parameters{
                                                  predefinedProp('TESTSYSTEM', 'app-smoketest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                                }
                                  }
-                                 phaseJob("AUTOPYLOT_DBG_TESTSYSTEM_SMOKETEST_CYCLE_3"){
+                                 phaseJob("DBG_TESTSYSTEM_SMOKETEST_CYCLE_3"){
                                                parameters{
                                                  predefinedProp('TESTSYSTEM', 'app-smoketest03-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                                }
@@ -99,16 +99,16 @@ jenkins {
                        }
 
                        phase("Delete systems after a SUCCESSFUL test execution") {
-                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                 phaseJob("DELETE_TESTSYSTEM"){
                                             parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                             }                                 }
-                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                 phaseJob("DELETE_TESTSYSTEM"){
                                             parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                             }
                                  }
-                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                 phaseJob("DELETE_TESTSYSTEM"){
                                             parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest03-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                             }

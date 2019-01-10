@@ -1,11 +1,10 @@
 jenkins {
     views {
-        "DBG LIVE SMOKETEST" {
+        "DBG TESTS" {
             dsl {
               description project.jobDescriptionTemplate
                       .replace("__TITLE__", "AUTOPYLOT")
-                      .replace("__TYPE__", "Job")
-                      .replace("__DESCRIPTION__", "Smoketests for DBGs on live")
+                      .replace("__DESCRIPTION__", "Tests for DBGs on Live AND TEST")
 
                 configure { view ->
 

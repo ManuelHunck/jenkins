@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DBG_TESTSYSTEM_SMOKETEST_CYCLE_2" {
+        "DBG_TESTSYSTEM_SMOKETEST_CYCLE_2" {
             dsl {
                 description("""Part of the SMOKETEST Execution, triggers api tests for
                 - Eurojackpot(COM) Subscription

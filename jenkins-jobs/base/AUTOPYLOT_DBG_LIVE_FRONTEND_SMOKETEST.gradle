@@ -1,15 +1,9 @@
 jenkins {
     jobs {
-        name("${project.jenkinsJobName}_DBG_LIVE_FRONTEND_SMOKETEST")
-        description project.jobDescriptionTemplate
-                .replace("__TITLE__", "_RUN")
-                .replace("__TYPE__", "Job")
-                .replace("__DESCRIPTION__", "Run Smoketests for DBGs on live") {
+        "AUTOPYLOT_DBG_LIVE_FRONTEND_SMOKETEST" {
             dsl {
-                description("""Do some checks against DBG games/pages on the live systems (tipp24.com, mylotto24.ie, mylotto24.co.uk)<br />Runs every 30 minutes...
+                description("""Run Smoketests for DBGs on live every 30 minutes..
 				""")
-
-                //label "devstation31.office.tipp24.de"
 
                 parameters {
 

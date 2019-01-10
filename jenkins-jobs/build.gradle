@@ -1,17 +1,30 @@
 import groovy.io.FileType
 
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://repo.jenkins-ci.org/releases/' }
+        maven { url 'https://jitpack.io' }
+    }
 
-plugins {
-    id "com.terrafolio.jenkins" version "1.2.3"
+    dependencies {
+        classpath('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1')
+
+        // plugin version 1.3.3 with job-dsl-core 1.53
+        classpath('com.github.esailors:gradle-jenkins-plugin:aecd2430cb1ffbe2f9b033510a50406bb1cd646b') {
+            exclude(module: "http-builder")
+        }
+    }
 }
+
+apply plugin: com.terrafolio.gradle.plugins.jenkins.JenkinsPlugin
 
 project.ext {
     jenkinsJobName = "${project.name}".replace('-', '_').toUpperCase()
     dbgJenkinsServer = "http://jenkins.dbg.ham.sg-cloud.co.uk/"
 
-    jenkinsUser = "jobcreator"
-    jenkinsPasswd = "teamgames"
-    jenkinsApiToken = "8c823b2008031a272c86552563666e66"
+    jenkinsUser = "teamgames"
+    jenkinsPasswd = "a2608301fe7ec64843e4d85d770e029e6be4be3d"
     teamEmail = "TeamDbgDev@esailors.de"
 
     gitProject = "games/dbg-automation-jenkinsjobs"
@@ -63,7 +76,7 @@ jenkins {
     jobs {
         jobDirs.each { dir ->
             dir.eachFileRecurse(FileType.FILES) { file ->
-                if (file.path.endsWith(".gradle")) {
+                if (file.path.startsWith("AUTOPYLOT_")) {
                     apply from: "${file.path}"
                 }
             }
