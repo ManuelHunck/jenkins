@@ -41,7 +41,7 @@ project.ext {
     <p class="description">__DESCRIPTION__</p>
     <ul class="links">
       <li><a href="https://srv-git-01-hh1.alinghi.tipp24.net/iwg/autopylot">AUTOPYLOT Testproject Github</a></li>
-      <li><a href="https://srv-git-01-hh1.alinghi.tipp24.net/iwg/autopylot/tree/master/jenkins-jobs">Job definition</a></li>
+      <li><a href="https://srv-git-01-hh1.alinghi.tipp24.net/games/dbg-automation-jenkinsjobs">Job definition</a></li>
       <li><a href="https://github.com/ghale/gradle-jenkins-plugin/wiki">Jenkins DSL syntax</a></li>
       <li><a href="https://srv-git-01-hh1.alinghi.tipp24.net/games/dbg-documentation-for-tests">Testdoucmentation in general</a></li>
     </ul>
