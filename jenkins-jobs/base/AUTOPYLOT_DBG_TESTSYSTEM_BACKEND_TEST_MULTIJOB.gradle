@@ -53,6 +53,12 @@ jenkins {
                                                predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
                                             }
                                  }
+                                 phaseJob("DBG_TESTSYSTEM_FRONTEND_DAILY_TEST"){
+                                       parameters{
+                                           predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
+                                       }
+                                 }
+
 
                        }
 
