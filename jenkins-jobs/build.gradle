@@ -76,7 +76,7 @@ jenkins {
     jobs {
         jobDirs.each { dir ->
             dir.eachFileRecurse(FileType.FILES) { file ->
-                if (file.path.startsWith("AUTOPYLOT_")) {
+                if (file.path.endsWith(".gradle")) {
                     apply from: "${file.path}"
                 }
             }
