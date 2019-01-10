@@ -17,7 +17,7 @@ jenkins {
 
                     steps {
                        phase("Delete systems before creation to ensure there is nothing interrupting") {
-                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                 phaseJob("DELETE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
                                           }
@@ -26,7 +26,7 @@ jenkins {
                        }
 
                        phase("Test system creation") {
-                                 phaseJob("AUTOPYLOT_CREATE_TESTSYSTEM"){
+                                 phaseJob("CREATE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
                                                predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
@@ -36,7 +36,7 @@ jenkins {
                        }
 
                        phase("Test system deployment") {
-                                 phaseJob("AUTOPYLOT_DEPLOY_TESTSYSTEM"){
+                                 phaseJob("DEPLOY_TESTSYSTEM"){
                                             parameters{
                                               predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
@@ -53,17 +53,10 @@ jenkins {
                                                predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
                                             }
                                  }
-                                 phaseJob("DBG_TESTSYSTEM_FRONTEND_DAILY_TEST"){
-                                       parameters{
-                                           predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
-                                       }
-                                 }
-
-
                        }
 
                        phase("Delete systems after a SUCCESSFUL test execution") {
-                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                 phaseJob("DELETE_TESTSYSTEM"){
                                             parameters{
                                                predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
                                             }
