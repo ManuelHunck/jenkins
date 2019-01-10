@@ -1,0 +1,60 @@
+jenkins {
+    jobs {
+        "AUTOPYLOT_DBG_TESTSYSTEM_CLUB_CYCLE_GENERATION" {
+            dsl {
+                description("""This Jobs is creating future cycles for LotteryClubs(triggered at 7:00 UTC)...
+				""")
+
+                parameters {
+                    stringParam 'TESTSYSTEM', 'app-01-dbg.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
+
+                    booleanParam 'FOR_ANY_SYSTEM', false, 'initial timejump on any system'
+                    booleanParam 'TESTSYSTEM_01', true, 'initial timejump on dbg owned app01'
+                    booleanParam 'TESTSYSTEM_02', true, 'initial timejump on dbg owned app02'
+                }
+
+                concurrentBuild true
+
+
+                steps {
+                    shell '''
+					    mkdir -p $PWD/$BUILD_TAG
+					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
+					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
+
+						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
+
+						if $FOR_ANY_SYSTEM; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_preparing_draw_creation.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $TESTSYSTEM_01; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_preparing_draw_creation.py --exec docker  --host app-01-dbg.test.t24.eu-west-1.sg-cloud.co.uk --jenkins $BUILD_URL --core app-01-dbg.test.t24.eu-west-1.sg-cloud.co.uk
+						fi
+						if $TESTSYSTEM_02; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_preparing_draw_creation.py --exec docker --host app-02-dbg.test.t24.eu-west-1.sg-cloud.co.uk --jenkins $BUILD_URL --core app-02-dbg.test.t24.eu-west-1.sg-cloud.co.uk
+						fi
+					'''
+                }
+
+                logRotator {
+                    artifactNumToKeep(96)
+                    daysToKeep 7
+                    numToKeep 64
+                }
+
+                triggers {
+                    cron('0 7 * * 1-5')
+                }
+
+                publishers {
+                    archiveArtifacts('$BUILD_TAG/**/*')
+                }
+
+                wrappers {
+                    colorizeOutput()
+                    timestamps()
+                }
+            }
+        }
+    }
+}

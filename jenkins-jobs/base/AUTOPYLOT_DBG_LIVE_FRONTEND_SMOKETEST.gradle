@@ -1,0 +1,78 @@
+jenkins {
+    jobs {
+        name("${project.jenkinsJobName}_DBG_LIVE_FRONTEND_SMOKETEST")
+        description project.jobDescriptionTemplate
+                .replace("__TITLE__", "_RUN")
+                .replace("__TYPE__", "Job")
+                .replace("__DESCRIPTION__", "Run Smoketests for DBGs on live") {
+            dsl {
+                description("""Do some checks against DBG games/pages on the live systems (tipp24.com, mylotto24.ie, mylotto24.co.uk)<br />Runs every 30 minutes...
+				""")
+
+                //label "devstation31.office.tipp24.de"
+
+                parameters {
+
+                    booleanParam 'DBG_SMOKE', true, 'Open each DBG ticket, do some checks and submit ticket to basket'
+                    booleanParam 'DBG_TICKET_QUICKTIPPS', true, 'Test DBG ticket quicktipps'
+                    booleanParam 'LC_SMOKE', false, 'Open LC lobby page, do some checks and submit ticket to basket'
+                    booleanParam 'CHECK_NUMBERS_QUOTAS', false, 'Check numbers and quotas for different tenants'
+                    booleanParam 'DBG_BASKET_QUICKTIPPS', true, 'Generates Basketquicktipps'
+
+                }
+
+                concurrentBuild true
+
+
+                steps {
+                    shell '''
+					    mkdir -p $PWD/$BUILD_TAG
+					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
+					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
+
+						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
+
+
+						if $DBG_SMOKE ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/live_monitoring/dbg_frontend_multitenant_smoketest.py --exec docker --host live --jenkins $BUILD_URL --core live
+						fi
+						if $DBG_TICKET_QUICKTIPPS ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/live_monitoring/dbg_frontend_multitenant_ticket_quicktipp.py --exec docker --host live --jenkins $BUILD_URL --core live
+						fi
+						if $CHECK_NUMBERS_QUOTAS ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_frontend_multitenant_numbers_quotas.py --exec docker --host live --jenkins $BUILD_URL --core live
+						fi
+						if $DBG_BASKET_QUICKTIPPS ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/live_monitoring/dbg_frontend_multitenant_basket_quicktipp.py --exec docker --host live --jenkins $BUILD_URL --core live
+						fi
+						if $LC_SMOKE ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/live_monitoring/dbg_frontend_lotteryclub_smoketest.py --exec docker --host live --jenkins $BUILD_URL --core live
+						fi
+
+
+
+					'''
+                }
+
+                logRotator {
+                    artifactNumToKeep(96)
+                    daysToKeep 7
+                    numToKeep 64
+                }
+
+                triggers {
+                    cron('H/30 * * * *')
+                }
+
+                publishers {
+                    archiveArtifacts('$BUILD_TAG/**/*')
+                }
+
+                wrappers {
+                    colorizeOutput()
+                    timestamps()
+                }
+            }
+        }
+    }
+}

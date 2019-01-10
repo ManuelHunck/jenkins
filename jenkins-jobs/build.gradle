@@ -1,0 +1,78 @@
+import groovy.io.FileType
+
+
+plugins {
+    id "com.terrafolio.jenkins" version "1.2.3"
+}
+
+project.ext {
+    jenkinsJobName = "${project.name}".replace('-', '_').toUpperCase()
+    dbgJenkinsServer = "http://jenkins.dbg.ham.sg-cloud.co.uk/"
+
+    jenkinsUser = "jobcreator"
+    jenkinsPasswd = "teamgames"
+    jenkinsApiToken = "8c823b2008031a272c86552563666e66"
+    teamEmail = "TeamDbgDev@esailors.de"
+
+    gitProject = "games/dbg-automation-jenkinsjobs"
+    gitServer = "srv-git-01-hh1.alinghi.tipp24.net"
+    gitRepo = "git@${project.gitServer}:${project.gitProject}"
+    gitRemote = "origin"
+    gitBranch = "master"
+    useGradleStep = project.hasProperty('useGradleStep') && ['on', 'true'].contains(project.properties.useGradleStep)
+    jobDescriptionTemplate = """
+<style>@import url('http://srv-git-01-hh1.alinghi.tipp24.net/pages/jzarz/jenkins-description-template/style.css');</style>
+<div class="jenkins-description">
+  <div class="main">
+    <h2>__TITLE__</h2>
+    <p class="description">__DESCRIPTION__</p>
+    <p class="note">Tests for DBGs on live and Test based on AUTOPYLOT</p>
+    <ul class="links">
+      <li><a href="https://srv-git-01-hh1.alinghi.tipp24.net/iwg/autopylot">AUTOPYLOT Testproject Github</a></li>
+      <li><a href="https://srv-git-01-hh1.alinghi.tipp24.net/iwg/autopylot/tree/master/jenkins-jobs">Job definition</a></li>
+      <li><a href="https://github.com/ghale/gradle-jenkins-plugin/wiki">Jenkins DSL syntax</a></li>
+      <li><a href="https://srv-git-01-hh1.alinghi.tipp24.net/games/dbg-documentation-for-tests">Testdoucmentation in general</a></li>
+    </ul>
+  </div>
+  <div class="aside">
+    <div class="team-flag team-flag--games-dbg">
+      <div class="team-flag-header">Maintained by</div>
+      <div class="team-flag-body">
+        <div class="team-name">Games DBG</div>
+      </div>
+    </div>
+  </div>
+</div>
+    """
+}
+
+def jobDirs = [new File("./base"), new File("./view")]
+
+jenkins {
+
+    servers {
+        dbgJenkins {
+            url "${project.dbgJenkinsServer}"
+            username "${project.jenkinsUser}"
+            password "${project.jenkinsPasswd}"
+        }
+    }
+
+    defaultServer servers.dbgJenkins
+
+    jobs {
+        jobDirs.each { dir ->
+            dir.eachFileRecurse(FileType.FILES) { file ->
+                if (file.path.endsWith(".gradle")) {
+                    apply from: "${file.path}"
+                }
+            }
+        }
+    }
+}
+
+task update(dependsOn: updateJenkinsItems, description: "Convenient task to create and upload jenkins jobs.")
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

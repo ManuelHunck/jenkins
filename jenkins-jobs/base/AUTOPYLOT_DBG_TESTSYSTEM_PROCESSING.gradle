@@ -1,0 +1,147 @@
+jenkins {
+    jobs {
+        "AUTOPYLOT_DBG_TESTSYSTEM_PROCESSING" {
+            dsl {
+                description("""Publish and Validate results and quotas for the last past draw and Enter and Edit Jackpot...
+				""")
+
+                parameters {
+
+
+                    stringParam 'TESTSYSTEM', 'app-02-dbg.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
+
+                    booleanParam 'MEGAMILLIONS', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for Mega Millions'
+                    booleanParam 'ROMANIAN_LOTTO', true, 'Publish the numbers 1, 2, 3, 4, 5, 6 and quotas for Romanian Lotto'
+                    booleanParam 'UK_LOTTO', true, 'Publish the numbers 1, 2, 3, 4, 5, 6 + 9 and quotas for UK Lotto'
+                    booleanParam 'USPOWERBALL', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for US Power Ball'
+                    booleanParam 'CASH_4_LIFE', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for Cash 4 Life'
+                    booleanParam 'LOTTO_6_AUS_49', true, 'Publish the numbers 1, 2, 3, 40, 49, 47 + 7 and quotas for Lotto 6 aus 49 and  S6 and S77'
+                    booleanParam 'EUROJACKPOT', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1, 9 and quotas for EuroJackpot without S6 and S77'
+                    booleanParam 'EUROMILLIONS', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1, 9 and quotas for Euro Millions and EML Plus'
+                    booleanParam 'IRISHLOTTO', true, 'Publish the numbers 1, 2, 3, 4, 5, 6 + 7  and quotas for Irish Lotto including Plus1, Plus and Raffle'
+                    booleanParam 'KENO', true, 'Publish the numbers 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 and quotas for Keno and Plus5'
+
+                    choiceParam('RENEWALSTATUS', ['unknown', 'true', 'false'])
+                    booleanParam 'ROMANIAN_LOTTO_JACKPOT', false, 'Enter jackpot for <b>Romanian Lotto</b>'
+                    stringParam 'ROMANIAN_LOTTO_JACKPOT_AMOUNT', '70000000', "Jackpot amount in RON/LEU for Romanian Lotto  (7 MIO RON if input is empty)"
+                    booleanParam 'LOTTO_JACKPOT', false, 'Enter jackpot for <b>Lotto 6 aus 49</b>'
+                    stringParam 'LOTTO_JACKPOT_AMOUNT', '70000000', "Jackpot amount in CENTS for Lotto 6 aus 49  (7 MIO EUR if input is empty)"
+                    booleanParam 'EUROJACKPOT_JACKPOT', false, 'Enter jackpot for <b>EuroJackpot</b>'
+                    stringParam 'EUROJACKPOT_JACKPOT_AMOUNT', '250000000', "Jackpot amount in CENTS for EuroJackpot (25 MIO EUR if input is empty)"
+                    booleanParam 'EUROMILLIONS_JACKPOT', false, 'Enter jackpot for <b>Euro Millones</b>'
+                    stringParam 'EUROMILLIONS_JACKPOT_AMOUNT', '300000000', "Jackpot amount in CENTS for Euro Millones (30 MIO EUR if input is empty)"
+                    booleanParam 'IRISH_LOTTO_JACKPOT', false, 'Enter jackpot for <b>Irish Lotto</b>'
+                    stringParam 'IRISH_LOTTO_JACKPOT_AMOUNT', '40000000', "Jackpot amount in CENTS for cash4life  (4 MIO EUR if input is empty)"
+                    booleanParam 'MEGAMILLIONS_JACKPOT', false, 'Enter jackpot for <b>MegaMilions</b>'
+                    stringParam 'MEGAMILLIONS_JACKPOT_AMOUNT', '1000000000', "Jackpot amount in CENTS for Megamillions  (100 MIO EUR if input is empty)"
+                    booleanParam 'POWERBALL_JACKPOT', false, 'Enter jackpot for <b>Powerball</b>'
+                    stringParam 'POWERBALL_JACKPOT_AMOUNT', '1000000000', "Jackpot amount in CENTS for Powerball  (100 MIO EUR if input is empty)"
+                    booleanParam 'UK_LOTTO_JACKPOT', false, 'Enter jackpot for <b>UK Lotto</b>'
+                    stringParam 'UK_LOTTO_JACKPOT_AMOUNT', '100000000', "Jackpot amount in CENTS for UK Lotto  (10 MIO EUR if input is empty)"
+
+                }
+
+                concurrentBuild true
+
+
+                steps {
+                    shell '''
+					    mkdir -p $PWD/$BUILD_TAG
+					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
+					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
+
+						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
+
+						if $ROMANIAN_LOTTO_JACKPOT ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --game bonoromanianlotto --site RO --renewalstatus $RENEWALSTATUS --jackpot $EUROJACKPOT_JACKPOT_AMOUNT --core $TESTSYSTEM
+						fi
+
+						if $UK_LOTTO_JACKPOT ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --game uklotto --site COM --renewalstatus $RENEWALSTATUS --jackpot $EUROJACKPOT_JACKPOT_AMOUNT --core $TESTSYSTEM
+						fi
+
+						if $EUROJACKPOT_JACKPOT ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --game eurojackpot --site COM --renewalstatus $RENEWALSTATUS --jackpot $EUROJACKPOT_JACKPOT_AMOUNT --core $TESTSYSTEM
+						fi
+
+						if $EUROMILLIONS_JACKPOT ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --game euromillions --site COM --jackpot $EUROMILLIONS_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						fi
+
+						if $LOTTO_JACKPOT ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --game germanlotto --site COM --jackpot $LOTTO_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						fi
+
+						if $IRISH_LOTTO_JACKPOT ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --game irishlotto --site COM --jackpot $IRISH_LOTTO_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						fi
+
+						if $MEGAMILLIONS_JACKPOT ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --game megamillions --site COM --jackpot $MEGAMILLIONS_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						fi
+
+						if $POWERBALL_JACKPOT ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --game powerball --site COM --jackpot $POWERBALL_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						fi
+
+						if $MEGAMILLIONS; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game megamillions --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $ROMANIAN_LOTTO; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game bonoromanianlotto --site RO --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $USPOWERBALL; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game powerball --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $CASH_4_LIFE; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game cash4life --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $LOTTO_6_AUS_49; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game germanlotto --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $EUROJACKPOT; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game eurojackpot --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+
+						if $EUROMILLIONS; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game euromillions --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $IRISHLOTTO; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game irishlotto --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $UK_LOTTO; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game uklotto --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $KENO; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game keno --site COM  --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+					'''
+                }
+
+                logRotator {
+                    artifactNumToKeep(96)
+                    daysToKeep 7
+                    numToKeep 64
+                }
+
+                publishers {
+                    archiveArtifacts('$BUILD_TAG/**/*')
+                }
+
+                wrappers {
+                    colorizeOutput()
+                    timestamps()
+                }
+            }
+        }
+    }
+}

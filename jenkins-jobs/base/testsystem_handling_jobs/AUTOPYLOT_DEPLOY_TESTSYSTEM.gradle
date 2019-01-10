@@ -1,0 +1,40 @@
+jenkins {
+    jobs {
+        "AUTOPYLOT_DEPLOY_TESTSYSTEM" {
+            type "Multijob"
+            dsl {
+                description("""Job to deploy a test system
+				""")
+
+				    parameters {
+                    stringParam 'CARA', '', "Cara Version to Test, latest for current live version"
+                    stringParam 'ALINGHI', '', "Alinghi Version to Test, latest for current master"
+                    stringParam 'TESTSYSTEM', '', "Test system URL (without 'http://', without trailing '/')"
+
+			    	}
+
+                    concurrentBuild true
+
+                    steps {
+                            remoteTrigger('platform jenkins', 'DEPLOY_TEST_AWS_ALL__WITH_DOCKER_DB') {
+                                           parameter('TESTSYSTEM', '$TESTSYSTEM')
+                                           parameter('VERSION_ALINGHI', '$ALINGHI')
+                                           parameter('VERSION_CARA', '$CARA')
+                                           blockBuildUntilComplete()
+                            }
+
+                        logRotator {
+                            artifactNumToKeep(30)
+                            daysToKeep 2
+                            numToKeep 30
+                        }
+                        wrappers {
+                            colorizeOutput()
+                            timestamps()
+                        }
+                    }
+                }
+            }
+        }
+
+    }

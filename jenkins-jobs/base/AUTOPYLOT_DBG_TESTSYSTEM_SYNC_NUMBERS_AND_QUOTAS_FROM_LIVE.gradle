@@ -1,0 +1,62 @@
+jenkins {
+    jobs {
+        "AUTOPYLOT_DBG_TESTSYSTEM_SYNC_NUMBERS_AND_QUOTAS_FROM_LIVE" {
+            dsl {
+                description("""Read numbers & quotas & jackpots from live draw info service and store them in the dog food test system (triggered every hour)...
+				""")
+
+                parameters {
+
+
+                    stringParam 'TESTSYSTEM', 'employee.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
+
+                    booleanParam 'SYNC_NUMBERS', true, 'Sync DBG numbers'
+                    booleanParam 'SYNC_QUOTAS', true, 'Sync DBG quotas'
+                    booleanParam 'SYNC_JACKPOTS', true, 'Sync DBG jackpots'
+
+
+                }
+
+                concurrentBuild true
+
+
+                steps {
+                    shell '''
+
+						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
+
+						if $SYNC_NUMBERS ; then
+						  docker run --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/copy_dbg_results_from_live_to_testsystem.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $SYNC_QUOTAS; then
+						  docker run --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/copy_dbg_quotas_from_live_to_testsystem.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+						if $SYNC_JACKPOTS; then
+						  docker run --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/copy_dbg_jackpots_from_live_to_testsystem.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+
+					'''
+                }
+
+                logRotator {
+                    artifactNumToKeep(96)
+                    daysToKeep 7
+                    numToKeep 64
+                }
+
+                triggers {
+                    cron('0 8-17 * * 1-5')
+                }
+
+
+                wrappers {
+                    colorizeOutput()
+                    timestamps()
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,98 @@
+jenkins {
+    jobs {
+        "AUTOPYLOT_DBG_TESTSYSTEM_SMOKETEST_CYCLE_3" {
+            dsl {
+                description("""Part of the SMOKETEST Execution, triggers api tests for
+                - Quicktipps for al COM products
+                - Cash4Life(IE) Subscription
+                - IrishLotto(UK)
+                - UKLotto(IE)
+                - RomanianLotto(RO)
+                ...
+				""")
+
+
+				parameters {
+                    stringParam 'TESTSYSTEM', 'app-smoketest03-dbg.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
+
+                    booleanParam 'SYSTEMCHECK', true, 'Checks service status, disables TMS tasks'
+					booleanParam 'PRODUCT_AVAILABILITY', true, 'Check all tenants for active Products'
+					booleanParam 'QUICKTIPP_TEST', true, 'Checking if the quicktipp api for cara is working'
+					booleanParam 'UNPAID_CANCELLATION', true, 'Unpaid Cancellation triggered'
+					booleanParam 'PAID_CANCELLATION', true, 'Paid Cancellation triggered'
+					booleanParam 'MYLOTTO24_UK_IRISHLOTTO', true, 'Purchase and Publish numbers and quotas for Irish Lotto in UK'
+					booleanParam 'MYLOTTO24_IE_UKLOTTO', true, 'Purchase and Publish numbers and quotas for UK Lotto in IE'
+					booleanParam 'MYLOTTO24_RO_ROMANIANLOTTO', true, 'Purchase and Publish numbers and quotas for RomanianLotto in RO'
+
+				}
+
+                concurrentBuild true
+
+                steps {
+
+                    shell '''
+                        echo 'error /\\sERROR:/' > log-parser.config
+                        echo 'warning /\\sWARNING:/' >> log-parser.config
+                    '''
+
+                    shell '''
+					    mkdir -p $PWD/$BUILD_TAG
+					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
+					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
+
+						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
+
+					    sleep 30 # sleep 0,5 minutes to give time to alinghi to start
+
+			            if $SYSTEMCHECK; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_system_check.py --site COM --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $PRODUCT_AVAILABILITY; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/alinghi/api_tests_site_configuration.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $QUICKTIPP_TEST; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/alinghi/api_tests_quicktipp_tests.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $UNPAID_CANCELLATION; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_unpaid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $PAID_CANCELLATION; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_paid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $MYLOTTO24_UK_IRISHLOTTO; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site UK --game irishlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+					    if $MYLOTTO24_IE_UKLOTTO; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site IE --game uklotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $MYLOTTO24_RO_ROMANIANLOTTO; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site RO --game bonoromanianlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $MYLOTTO24_COM_MEGAMILLIONS; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site INT --game megamillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+					'''
+
+                }
+
+                logRotator {
+                    artifactNumToKeep(96)
+                    daysToKeep 7
+                    numToKeep 64
+                }
+                publishers {
+                    archiveArtifacts('$BUILD_TAG/**/*')
+                    consoleParsing {
+                        projectRules('log-parser.config')
+                        unstableOnWarning()
+                        failBuildOnError()
+                    }
+                }
+                wrappers {
+                    colorizeOutput()
+                    timestamps()
+                }
+            }
+        }
+    }
+}

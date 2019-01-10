@@ -1,0 +1,49 @@
+jenkins {
+    jobs {
+        "AUTOPYLOT_DBG_TESTSYSTEM_LC_PURCHASE_AND_PROCESSING" {
+            dsl {
+                description("""Purchase Magic Seven and process the upcoming week...
+				""")
+
+                parameters {
+                    stringParam 'TESTSYSTEM', 'app-XX-XXX.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
+
+                    booleanParam 'TIPP24_COM_MAGIC_SEVEN', true, 'Purchase Magic Seven and process the upcoming week'
+                }
+
+                concurrentBuild true
+
+
+                steps {
+                    shell '''
+					    mkdir -p $PWD/$BUILD_TAG
+					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
+					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
+
+						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
+
+						if $TIPP24_COM_MAGIC_SEVEN; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_magic_seven_test.py --exec docker --site COM --game magicseven --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+
+					'''
+                }
+
+                logRotator {
+                    artifactNumToKeep(96)
+                    daysToKeep 7
+                    numToKeep 64
+                }
+
+                publishers {
+                    archiveArtifacts('$BUILD_TAG/**/*')
+                }
+
+                wrappers {
+                    colorizeOutput()
+                    timestamps()
+                }
+            }
+        }
+    }
+}

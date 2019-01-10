@@ -1,0 +1,39 @@
+jenkins {
+    jobs {
+        "AUTOPYLOT_CREATE_TESTSYSTEM" {
+            dsl {
+                description("""Job to create a test system
+				""")
+
+				    parameters {
+                    stringParam 'TESTSYSTEM', '', "Test system URL (without 'http://', without trailing '/')"
+                    stringParam 'ANSIBLE_VARIABLES', '', "Here used for choosing an aws system with a better perfomance"
+			    	}
+
+                    concurrentBuild true
+
+                    steps {
+                            remoteTrigger('platform jenkins', 'PLATFORM_AWS_TESTSYSTEM_CREATE') {
+                                                    parameter('TESTSYSTEM', '$TESTSYSTEM')
+                                                    parameter('DOCKER_FILESYSTEM', 'btrfs')
+                                                    parameter('SPOT_INSTANCE_PRICE', '')
+                                                    parameter('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
+                                                    blockBuildUntilComplete()
+                            }
+
+
+                        logRotator {
+                            artifactNumToKeep(30)
+                            daysToKeep 2
+                            numToKeep 30
+                        }
+                        wrappers {
+                            colorizeOutput()
+                            timestamps()
+                        }
+                    }
+                }
+            }
+        }
+
+    }

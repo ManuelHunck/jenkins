@@ -1,0 +1,36 @@
+jenkins {
+    jobs {
+        "AUTOPYLOT_DELETE_TESTSYSTEM" {
+            dsl {
+                description("""Job to delete a test system
+				""")
+
+				    parameters {
+                    stringParam 'TESTSYSTEM', '', "Test system URL (without 'http://', without trailing '/')"
+			    	}
+
+                    concurrentBuild true
+
+                    steps {
+
+                            remoteTrigger('platform jenkins', 'PLATFORM_AWS_TESTSYSTEM_DELETE') {
+                                parameter('TESTSYSTEM', '$TESTSYSTEM')
+                                blockBuildUntilComplete()
+                            }
+
+                        logRotator {
+                            artifactNumToKeep(30)
+                            daysToKeep 2
+                            numToKeep 30
+                        }
+
+                        wrappers {
+                            colorizeOutput()
+                            timestamps()
+                        }
+                    }
+                }
+            }
+        }
+
+    }

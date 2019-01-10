@@ -1,0 +1,110 @@
+jenkins {
+    jobs {
+        "AUTOPYLOT_DBG_TESTSYSTEM_DAILY_TEST_MULTIJOB" {
+            type "Multijob"
+            dsl {
+                description("""Daily test execution for testing current cs master with cara live version for the backend and frontend(triggered at 07.00 UTC)..
+				""")
+
+				    parameters {
+                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.2xlarge"', "Configuration of the AWS machine"
+                    stringParam 'CARA', 'latest', "Cara Version to Test"
+                    stringParam 'ALINGHI', 'latest', "Alinghi Version to Test"
+			    	}
+
+                    concurrentBuild true
+
+                    steps {
+                       phase("Delete systems before creation to ensure there is nothing interrupting") {
+                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                          parameters{
+                                               predefinedProp("TESTSYSTEM", "app-dailytest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                          }
+                                 }
+                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                          parameters{
+                                               predefinedProp("TESTSYSTEM", "app-dailytest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                          }
+                                 }
+                       }
+
+                       phase("Test system creation") {
+                                 phaseJob("AUTOPYLOT_CREATE_TESTSYSTEM"){
+                                          parameters{
+                                               predefinedProp("TESTSYSTEM", "app-dailytest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                               predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
+                                          }
+                                 }
+                                 phaseJob("AUTOPYLOT_CREATE_TESTSYSTEM"){
+                                          parameters{
+                                               predefinedProp("TESTSYSTEM", "app-dailytest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                               predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
+                                          }
+                                 }
+                       }
+
+                       phase("Test system deployment") {
+                                 phaseJob("AUTOPYLOT_DEPLOY_TESTSYSTEM"){
+                                            parameters{
+                                              predefinedProp('TESTSYSTEM', 'app-dailytest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
+                                              predefinedProp('VERSION_ALINGHI', '$ALINGHI')
+                                              predefinedProp('VERSION_CARA', '$CARA')
+                                            }
+                                 }
+                                 phaseJob("AUTOPYLOT_DEPLOY_TESTSYSTEM"){
+                                            parameters{
+                                              predefinedProp('TESTSYSTEM', 'app-dailytest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
+                                              predefinedProp('VERSION_ALINGHI', '$ALINGHI')
+                                              predefinedProp('VERSION_CARA', '$CARA')
+                                            }
+                                 }
+                       }
+
+                       phase("Test execution") {
+                                 continuationCondition('SUCCESSFUL')
+                                 phaseJob("AUTOPYLOT_DBG_TESTSYSTEM_BACKEND_DAILY_TEST"){
+                                            parameters{
+                                               predefinedProp("TESTSYSTEM", "app-dailytest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                            }
+                                 }
+                                 phaseJob("AUTOPYLOT_DBG_TESTSYSTEM_FRONTEND_DAILY_TEST"){
+                                            parameters{
+                                               predefinedProp("TESTSYSTEM", "app-dailytest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                            }
+                                 }
+                       }
+
+                       phase("Delete systems after a SUCCESSFUL test execution") {
+                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                            parameters{
+                                               predefinedProp("TESTSYSTEM", "app-dailytest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                            }
+                                 }
+                                 phaseJob("AUTOPYLOT_DELETE_TESTSYSTEM"){
+                                            parameters{
+                                               predefinedProp("TESTSYSTEM", "app-dailytest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                            }
+                                 }
+                       }
+
+
+                        logRotator {
+                            artifactNumToKeep(96)
+                            daysToKeep 7
+                            numToKeep 64
+                        }
+
+                        triggers {
+                            cron('0 7 * * 1-5')
+                        }
+
+                        wrappers {
+                            colorizeOutput()
+                            timestamps()
+                        }
+                    }
+                }
+            }
+        }
+
+    }
