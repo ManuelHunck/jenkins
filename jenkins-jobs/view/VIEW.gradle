@@ -3,7 +3,8 @@ jenkins {
         "DBG TESTS" {
             dsl {
               description project.jobDescriptionTemplate
-                      .replace("__DESCRIPTION__", "Tests for DBGs on Live AND TEST")
+                      .replace("__TITLE__", "DBG TESTS")
+                      .replace("__DESCRIPTION__", "Tests for DBGs on live and Test based on <a href=\"https://srv-git-01-hh1.alinghi.tipp24.net/iwg/autopylot\">AUTOPYLOT Testproject Github</a>")
 
                 configure { view ->
 

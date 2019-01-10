@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DBG_TESTSYSTEM_SYNC_NUMBERS_AND_QUOTAS_FROM_LIVE" {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_SYNC_NUMBERS_AND_QUOTAS_FROM_LIVE" {
             dsl {
                 description("""Read numbers & quotas & jackpots from live draw info service and store them in the dog food test system (triggered every hour)...
 				""")

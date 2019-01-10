@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DBG_TESTSYSTEM_FRONTEND" {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_FRONTEND" {
             dsl {
                 description("""Do some checks against DBG games/pages (tipp24.com, mylotto24.ie, mylotto24.co.uk)<br />
 				""")

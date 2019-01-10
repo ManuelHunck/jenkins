@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DBG_TESTSYSTEM_TICKET_PURCHASE_AND_PROCESSING" {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_TICKET_PURCHASE_AND_PROCESSING" {
             dsl {
                 description("""Purchasing and Processing a Ticket including timejumps..
 				""")

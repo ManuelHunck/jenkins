@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DBG_TESTSYSTEM_LC_PURCHASE_AND_PROCESSING" {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_LC_PURCHASE_AND_PROCESSING" {
             dsl {
                 description("""Purchase Magic Seven and process the upcoming week...
 				""")

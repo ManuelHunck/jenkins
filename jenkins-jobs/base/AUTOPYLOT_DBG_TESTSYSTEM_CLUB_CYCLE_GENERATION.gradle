@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "AUTOPYLOT_DBG_TESTSYSTEM_CLUB_CYCLE_GENERATION" {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_CLUB_CYCLE_GENERATION" {
             dsl {
                 description("""This Jobs is creating future cycles for LotteryClubs(triggered at 7:00 UTC)...
 				""")

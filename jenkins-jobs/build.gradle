@@ -20,7 +20,7 @@ buildscript {
 apply plugin: com.terrafolio.gradle.plugins.jenkins.JenkinsPlugin
 
 project.ext {
-    jenkinsJobName = "${project.name}".replace('-', '_').toUpperCase()
+    jenkinsJobName = "AUTOPYLOT"
     dbgJenkinsServer = "http://jenkins.dbg.ham.sg-cloud.co.uk/"
 
     jenkinsUser = "teamgames"
@@ -39,7 +39,6 @@ project.ext {
   <div class="main">
     <h2>__TITLE__</h2>
     <p class="description">__DESCRIPTION__</p>
-    <p class="note">Tests for DBGs on live and Test based on AUTOPYLOT</p>
     <ul class="links">
       <li><a href="https://srv-git-01-hh1.alinghi.tipp24.net/iwg/autopylot">AUTOPYLOT Testproject Github</a></li>
       <li><a href="https://srv-git-01-hh1.alinghi.tipp24.net/iwg/autopylot/tree/master/jenkins-jobs">Job definition</a></li>
@@ -51,7 +50,9 @@ project.ext {
     <div class="team-flag team-flag--games-dbg">
       <div class="team-flag-header">Maintained by</div>
       <div class="team-flag-body">
-        <div class="team-name">Games DBG</div>
+        <li>DBG-QA ENGINEER: Manuel Hunck(For Autopylot and this Jenkins Jobs)</li>
+        <li>DBG-QA ENGINEER: Nora Aouadhi(For Autopylot and this Jenkins Jobs)</li>
+        <li>IWG-QA ENGINEER: Arno Winter (For Autopylot direct)</li>
       </div>
     </div>
   </div>
