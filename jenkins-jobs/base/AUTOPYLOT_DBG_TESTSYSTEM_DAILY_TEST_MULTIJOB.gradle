@@ -62,12 +62,12 @@ jenkins {
 
                        phase("Test execution") {
                                  continuationCondition('SUCCESSFUL')
-                                 phaseJob("AUTOPYLOT_DBG_TESTSYSTEM_BACKEND_DAILY_TEST"){
+                                 phaseJob("DBG_TESTSYSTEM_BACKEND_DAILY_TEST"){
                                             parameters{
                                                predefinedProp("TESTSYSTEM", "app-dailytest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                             }
                                  }
-                                 phaseJob("AUTOPYLOT_DBG_TESTSYSTEM_FRONTEND_DAILY_TEST"){
+                                 phaseJob("DBG_TESTSYSTEM_FRONTEND_DAILY_TEST"){
                                             parameters{
                                                predefinedProp("TESTSYSTEM", "app-dailytest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                             }
