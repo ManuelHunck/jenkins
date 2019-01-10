@@ -88,11 +88,7 @@ jenkins {
                        }
 
 
-                        logRotator {
-                            artifactNumToKeep(96)
-                            daysToKeep 7
-                            numToKeep 64
-                        }
+                        logRotator(5, 5)
 
                         triggers {
                             cron('0 7 * * 1-5')

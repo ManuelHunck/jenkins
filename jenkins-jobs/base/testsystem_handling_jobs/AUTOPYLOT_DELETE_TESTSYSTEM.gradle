@@ -18,11 +18,8 @@ jenkins {
                                 blockBuildUntilComplete()
                             }
 
-                        logRotator {
-                            artifactNumToKeep(30)
-                            daysToKeep 2
-                            numToKeep 30
-                        }
+                        logRotator(5, 5)
+
 
                         wrappers {
                             colorizeOutput()
