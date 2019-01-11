@@ -52,9 +52,6 @@ jenkins {
 
                 logRotator(5, 5)
 
-                triggers {
-                    cron('0 8 * * 1-5')
-                }
 
                 publishers {
                     archiveArtifacts('$BUILD_TAG/**/*')
