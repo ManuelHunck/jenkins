@@ -2,7 +2,7 @@ jenkins {
     jobs {
         "${project.jenkinsJobName}_DBG_LIVE_FRONTEND_SMOKETEST" {
             dsl {
-                description("""Run Smoketests for DBGs on live every 30 minutes..
+                description("""Run Smoketests for DBGs on live every 40 minutes..
 				""")
 
                 parameters {
@@ -51,7 +51,7 @@ jenkins {
                 logRotator(5, 5)
 
                 triggers {
-                    cron('H/30 * * * *')
+                    cron('H/40 * * * *')
                 }
 
                 publishers {
