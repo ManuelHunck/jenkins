@@ -7,7 +7,7 @@ jenkins {
 				""")
 
 				    parameters {
-                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.2xlarge"', "Configuration of the AWS machine"
+                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
                     stringParam 'CARA', 'latest', "Cara Version to Test"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test"
 			    	}
