@@ -19,9 +19,6 @@ jenkins {
 
                 steps {
 
-                    shell '''
-                        echo 'error /\\sERROR:/' > log-parser.config
-                    '''
 
                     shell '''
 					    mkdir -p $PWD/$BUILD_TAG
