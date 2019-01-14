@@ -10,17 +10,17 @@ jenkins {
 
                     stringParam 'TESTSYSTEM', 'app-02-dbg.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
 
-                    booleanParam 'MEGAMILLIONS', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for Mega Millions'
-                    booleanParam 'ROMANIAN_LOTTO', true, 'Publish the numbers 1, 2, 3, 4, 5, 6 and quotas for Romanian Lotto'
-                    booleanParam 'UK_LOTTO', true, 'Publish the numbers 1, 2, 3, 4, 5, 6 + 9 and quotas for UK Lotto'
-                    booleanParam 'GLUECKSSPIRALE', true, 'GLS'
-                    booleanParam 'USPOWERBALL', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for US Power Ball'
-                    booleanParam 'CASH_4_LIFE', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for Cash 4 Life'
-                    booleanParam 'LOTTO_6_AUS_49', true, 'Publish the numbers 1, 2, 3, 40, 49, 47 + 7 and quotas for Lotto 6 aus 49 and  S6 and S77'
-                    booleanParam 'EUROJACKPOT', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1, 9 and quotas for EuroJackpot without S6 and S77'
-                    booleanParam 'EUROMILLIONS', true, 'Publish the numbers 1, 2, 3, 4, 5 + 1, 9 and quotas for Euro Millions and EML Plus'
-                    booleanParam 'IRISHLOTTO', true, 'Publish the numbers 1, 2, 3, 4, 5, 6 + 7  and quotas for Irish Lotto including Plus1, Plus and Raffle'
-                    booleanParam 'KENO', true, 'Publish the numbers 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 and quotas for Keno and Plus5'
+                    booleanParam 'MEGAMILLIONS', false, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for Mega Millions'
+                    booleanParam 'ROMANIAN_LOTTO', false, 'Publish the numbers 1, 2, 3, 4, 5, 6 and quotas for Romanian Lotto'
+                    booleanParam 'UK_LOTTO', false, 'Publish the numbers 1, 2, 3, 4, 5, 6 + 9 and quotas for UK Lotto'
+                    booleanParam 'GLUECKSSPIRALE', false, 'GLS'
+                    booleanParam 'USPOWERBALL', false, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for US Power Ball'
+                    booleanParam 'CASH_4_LIFE', false, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for Cash 4 Life'
+                    booleanParam 'LOTTO_6_AUS_49', false, 'Publish the numbers 1, 2, 3, 40, 49, 47 + 7 and quotas for Lotto 6 aus 49 and  S6 and S77'
+                    booleanParam 'EUROJACKPOT', false, 'Publish the numbers 1, 2, 3, 4, 5 + 1, 9 and quotas for EuroJackpot without S6 and S77'
+                    booleanParam 'EUROMILLIONS', false, 'Publish the numbers 1, 2, 3, 4, 5 + 1, 9 and quotas for Euro Millions and EML Plus'
+                    booleanParam 'IRISHLOTTO', false, 'Publish the numbers 1, 2, 3, 4, 5, 6 + 7  and quotas for Irish Lotto including Plus1, Plus and Raffle'
+                    booleanParam 'KENO', false, 'Publish the numbers 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 and quotas for Keno and Plus5'
 
                     choiceParam('RENEWALSTATUS', ['unknown', 'true', 'false'])
                     booleanParam 'ROMANIAN_LOTTO_JACKPOT', false, 'Enter jackpot for <b>Romanian Lotto</b>'
