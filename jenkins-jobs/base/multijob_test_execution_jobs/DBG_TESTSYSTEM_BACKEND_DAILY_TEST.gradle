@@ -42,7 +42,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
 						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
-					    sleep 60 # sleep 1 minute to give time to alinghi to start
+					    sleep 30 # sleep 1 minute to give time to alinghi to start
                         if $INITIAL_TIMEJUMP; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_preparing_timejump.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
