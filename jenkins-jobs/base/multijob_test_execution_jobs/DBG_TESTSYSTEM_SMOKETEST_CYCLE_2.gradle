@@ -17,6 +17,8 @@ jenkins {
 
 					booleanParam 'SYSTEMCHECK', true, 'Checks service status, disables TMS tasks'
 					booleanParam 'PRODUCT_AVAILABILITY', true, 'Check all tenants for active Products'
+                    booleanParam 'UNPAID_CANCELLATION', true, 'Unpaid Cancellation triggered'
+                    booleanParam 'PAID_CANCELLATION', true, 'Paid Cancellation triggered'
 					booleanParam 'TIPP24_COM_EUROJACKPOT_SUBSCRIPTION', true, 'Purchase Subscription, renewal, chancels in COM'
 					booleanParam 'TIPP24_COM_POWERBALL', true, 'Purchase and Publish numbers and quotas '
 					booleanParam 'TIPP24_COM_MEGAMILLIONS', true, 'Purchase and Publish numbers and quotas'
@@ -49,6 +51,12 @@ jenkins {
 						if $PRODUCT_AVAILABILITY; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/alinghi/api_tests_site_configuration.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
+						if $UNPAID_CANCELLATION; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_unpaid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+                        if $PAID_CANCELLATION; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_paid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
 					    if $TIPP24_COM_EUROJACKPOT_SUBSCRIPTION; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game eurojackpot --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
