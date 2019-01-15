@@ -3,7 +3,7 @@ jenkins {
         "${project.jenkinsJobName}_DBG_TESTSYSTEM_SMOKETEST_MULTIJOB" {
             type "Multijob"
             dsl {
-                description("""Multi Job triggering 3 Smoke Test sets, covering all products and ticket types and tenants...
+                description("""MultiJob triggering 3 Smoke Test sets, covering all products and ticket types and tenants...
 				""")
 
 				    parameters {

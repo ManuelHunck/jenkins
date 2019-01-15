@@ -47,12 +47,11 @@ project.ext {
     </ul>
   </div>
   <div class="aside">
-    <div class="team-flag team-flag--games-dbg">
-      <div class="team-flag-header">Maintained by</div>
-      <div class="team-flag-body">
+      <div>Maintained by</div>
         <li>DBG-QA ENGINEER: Manuel Hunck(For Autopylot and this Jenkins Jobs)</li>
         <li>DBG-QA ENGINEER: Nora Aouadhi(For Autopylot and this Jenkins Jobs)</li>
         <li>IWG-QA ENGINEER: Arno Winter (For Autopylot direct)</li>
+      <div>What the test specifically do can be found withing the jobs itself where they are described</div>
       </div>
     </div>
   </div>
