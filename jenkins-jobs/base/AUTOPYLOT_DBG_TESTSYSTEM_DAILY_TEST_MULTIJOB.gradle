@@ -10,7 +10,9 @@ jenkins {
                     stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
                     stringParam 'CARA', 'latest', "Cara Version to Test"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test"
-			    	}
+                    stringParam 'SERVICES', 'team-specific', "definition of the services deployed"
+
+                    }
 
                     concurrentBuild true
 
@@ -49,6 +51,8 @@ jenkins {
                                               predefinedProp('TESTSYSTEM', 'app-dailytest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
                                               predefinedProp('VERSION_CARA', '$CARA')
+                                              predefinedProp('SERVICES', '$SERVICES')
+
                                             }
                                  }
                                  phaseJob("DEPLOY_TESTSYSTEM"){
@@ -56,6 +60,8 @@ jenkins {
                                               predefinedProp('TESTSYSTEM', 'app-dailytest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
                                               predefinedProp('VERSION_CARA', '$CARA')
+                                              predefinedProp('SERVICES', '$SERVICES')
+
                                             }
                                  }
                        }

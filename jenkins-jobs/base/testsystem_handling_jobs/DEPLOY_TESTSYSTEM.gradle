@@ -10,6 +10,7 @@ jenkins {
                     stringParam 'CARA', '', "Cara Version to Test, latest for current live version"
                     stringParam 'ALINGHI', '', "Alinghi Version to Test, latest for current master"
                     stringParam 'TESTSYSTEM', '', "Test system URL (without 'http://', without trailing '/')"
+                    stringParam 'SERVICES', '', "definition of the services deployed"
 
 			    	}
 
@@ -20,6 +21,7 @@ jenkins {
                                            parameter('TESTSYSTEM', '$TESTSYSTEM')
                                            parameter('VERSION_ALINGHI', '$ALINGHI')
                                            parameter('VERSION_CARA', '$CARA')
+                                           parameter('SERVICES', '$SERVICES')
                                            blockBuildUntilComplete()
                             }
 
