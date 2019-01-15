@@ -10,7 +10,7 @@ jenkins {
                     stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
                     stringParam 'CARA', 'latest', "Cara Version to Test"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test"
-                    stringParam 'SERVICES', 'team-specific', "definition of the services deployed"
+                    stringParam 'SERVICES', 'team-specific', "default = all, needed here!"
 
                     }
 
