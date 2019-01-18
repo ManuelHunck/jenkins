@@ -13,7 +13,8 @@ jenkins {
                     booleanParam 'MEGAMILLIONS', false, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for Mega Millions'
                     booleanParam 'ROMANIAN_LOTTO', false, 'Publish the numbers 1, 2, 3, 4, 5, 6 and quotas for Romanian Lotto'
                     booleanParam 'UK_LOTTO', false, 'Publish the numbers 1, 2, 3, 4, 5, 6 + 9 and quotas for UK Lotto'
-                    booleanParam 'GLUECKSSPIRALE', false, 'GLS'
+                    booleanParam 'GLUECKSSPIRALE', false, 'GLS with Spiel77 and Super6'
+                    booleanParam 'GLUECKSSPIRALE_ONLY', false 'GLS without additional lotteries'
                     booleanParam 'USPOWERBALL', false, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for US Power Ball'
                     booleanParam 'CASH_4_LIFE', false, 'Publish the numbers 1, 2, 3, 4, 5 + 1 and quotas for Cash 4 Life'
                     booleanParam 'LOTTO_6_AUS_49', false, 'Publish the numbers 1, 2, 3, 40, 49, 47 + 7 and quotas for Lotto 6 aus 49 and  S6 and S77'
@@ -108,6 +109,11 @@ jenkins {
 						if $GLUECKSSPIRALE; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game gluecksspirale --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
+						
+						$GLUECKSSPIRALE_ONLY; then
+                           docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game gluecksspirale_only --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+
 
 						if $EUROJACKPOT; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --game eurojackpot --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
