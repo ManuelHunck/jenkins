@@ -52,10 +52,6 @@ jenkins {
 
                 publishers {
                     archiveArtifacts('$BUILD_TAG/**/*')
-                    consoleParsing {
-                        projectRules('log-parser.config')
-                        failBuildOnError()
-                    }
                 }
 
                 wrappers {
