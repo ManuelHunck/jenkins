@@ -3,12 +3,12 @@ jenkins {
         "DBG_TESTSYSTEM_SMOKETEST_CYCLE_2" {
             dsl {
                 description("""Part of the SMOKETEST Execution, triggers api tests for
-                - Eurojackpot(COM) Subscription
-                - Powerball(COM) Jackpothunter
-                - Powerball(COM)
-                - Megamillions(COM)
-                - EuroMillions Tuesday and Friday(COM)
-                - Keno(COM)
+                            <li>- Eurojackpot(COM) Subscription<li>
+                            <li>- Powerball(COM) Jackpothunter<li>
+                            <li>- Powerball(COM)<li>
+                            <li>- Megamillions(COM)<li>
+                            <li>- EuroMillions Tuesday and Friday(COM)<li>
+                            <li>- Keno(COM)<li>
                 ...
 				""")
 

@@ -2,13 +2,21 @@ jenkins {
     jobs {
         "${project.jenkinsJobName}_DBG_TESTSYSTEM_LC_PURCHASE_AND_PROCESSING" {
             dsl {
-                description("""Purchase Magic Seven and process the upcoming week...
+                description("""Purchase and Process ancomplete Lotteryclub cycle for...
+                            <li>- JackpotDuo (COM)</li>
+                            <li>- Lotto Select(COM)</li>
+                            <li>- Lotto Start (COM)</li>
+                            <li>- Magic Seven (COM)</li>
 				""")
 
                 parameters {
                     stringParam 'TESTSYSTEM', 'app-XX-XXX.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
 
-                    booleanParam 'TIPP24_COM_MAGIC_SEVEN', true, 'Purchase Magic Seven and process the upcoming week'
+                    booleanParam 'TIPP24_COM_MAGIC_SEVEN', false, 'Purchase Magic Seven and process the upcoming cycle'
+                    booleanParam 'TIPP24_COM_JACKPOT_DUO', false, 'Purchase Jackpot Duo and process the upcoming cycle'
+                    booleanParam 'TIPP24_COM_LOTTO_START', false, 'Purchase Lotto Start and process the upcoming cycle'
+                    booleanParam 'TIPP24_COM_LOTTO_SELECT', false, 'Purchase Lotto Select and process the upcoming cycle'
+
                 }
 
                 concurrentBuild true
@@ -25,6 +33,15 @@ jenkins {
 						if $TIPP24_COM_MAGIC_SEVEN; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_magic_seven_test.py --exec docker --site COM --game magicseven --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
+						if $TIPP24_COM_JACKPOT_DUO; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_jackpot_duo_test.py --exec docker --site COM --game jackpotduo --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+                        if $TIPP24_COM_LOTTO_START; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_lotto_start_test.py --exec docker --site COM --game lottostart --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+                        if $TIPP24_COM_LOTTO_SELECT; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_lotto_select_test.py --exec docker --site COM --game lottoselect --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
 
 					'''
                 }

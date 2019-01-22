@@ -3,18 +3,18 @@ jenkins {
         "DBG_TESTSYSTEM_SMOKETEST_CYCLE_1" {
             dsl {
                 description("""Part of the SMOKETEST Execution, triggers api tests for
-                - Powerball(COM) Subscription
-                - Megamillions(COM) Jackpothunter
-                - Gluecksspirale(COM)
-                - German Lotto wednesday and saturday (COM)
-                - Eurojackpot(COM)
-                - Cash4Life(COM)
-                - IWG dickehose (COM)
-                - IWG bingo (COM)
-                - IWG bingofive (COM)
-                - IWG emlsofort (COM)
-                - IWG kenow (COM)
-                - IWG sevenup (UK)
+                            <li>- Powerball(COM) Subscription<li>
+                            <li>- Megamillions(COM) Jackpothunter<li>
+                            <li>- Gluecksspirale(COM)<li>
+                            <li>- German Lotto wednesday and saturday (COM)<li>
+                            <li>- Eurojackpot(COM)<li>
+                            <li>- Cash4Life(COM)<li>
+                            <li>- IWG dickehose (COM)<li>
+                            <li>- IWG bingo (COM)<li>
+                            <li>- IWG bingofive (COM)<li>
+                            <li>- IWG emlsofort (COM)<li>
+                            <li>- IWG kenow (COM)<li>
+                            <li>- IWG sevenup (UK)<li>
                 ...
 				""")
 

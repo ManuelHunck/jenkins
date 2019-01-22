@@ -3,12 +3,11 @@ jenkins {
         "DBG_TESTSYSTEM_SMOKETEST_CYCLE_3" {
             dsl {
                 description("""Part of the SMOKETEST Execution, triggers api tests for
-                - Quicktipps for al COM products
-                - Cash4Life(IE) Subscription
-                - IrishLotto(UK)
-                - UKLotto(IE)
-                - RomanianLotto(RO)
-                ...
+                            <li>- Quicktipps for all COM products<li>
+                            <li>- Cash4Life(IE) Subscription<li>
+                            <li>- IrishLotto(UK)<li>
+                            <li>- UKLotto(IE)<li>
+                            <li>- RomanianLotto(RO)<li>
 				""")
 
 
