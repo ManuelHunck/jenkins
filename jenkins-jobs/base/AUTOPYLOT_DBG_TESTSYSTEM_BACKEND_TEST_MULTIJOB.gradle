@@ -11,7 +11,7 @@ jenkins {
                     stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
                     stringParam 'CARA', 'latest', "Cara Version to Test"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test"
-                    stringParam 'SERVICES', 'platform-core-service-smoketest', "if all services should be deployed -> team-specific"
+                    stringParam 'SERVICES', 'platform-dbg-smoketest', "if all services should be deployed -> team-specific"
 
                     }
 
