@@ -3,11 +3,11 @@ jenkins {
         "DBG_TESTSYSTEM_SMOKETEST_CYCLE_3" {
             dsl {
                 description("""Part of the SMOKETEST Execution, triggers api tests for
-                            <li>- Quicktipps for all COM products<li>
-                            <li>- Cash4Life(IE) Subscription<li>
-                            <li>- IrishLotto(UK)<li>
-                            <li>- UKLotto(IE)<li>
-                            <li>- RomanianLotto(RO)<li>
+                            <li>Quicktipps for all COM products</li>
+                            <li>Cash4Life(IE) Subscription</li>
+                            <li>IrishLotto(UK)</li>
+                            <li>UKLotto(IE)</li>
+                            <li>RomanianLotto(RO)</li>
 				""")
 
 
@@ -37,7 +37,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.8
+                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.10
 
 						docker pull $CONTAINER
 
