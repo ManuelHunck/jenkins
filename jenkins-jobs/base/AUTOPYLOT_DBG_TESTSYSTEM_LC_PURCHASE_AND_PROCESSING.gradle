@@ -7,6 +7,7 @@ jenkins {
                             <li>- Lotto Select(COM)</li>
                             <li>- Lotto Start (COM)</li>
                             <li>- Magic Seven (COM)</li>
+                            <li>- Lucky Star (UK)</li>
 				""")
 
                 parameters {
@@ -16,6 +17,7 @@ jenkins {
                     booleanParam 'TIPP24_COM_JACKPOT_DUO', false, 'Purchase Jackpot Duo and process the upcoming cycle'
                     booleanParam 'TIPP24_COM_LOTTO_START', false, 'Purchase Lotto Start and process the upcoming cycle'
                     booleanParam 'TIPP24_COM_LOTTO_SELECT', false, 'Purchase Lotto Select and process the upcoming cycle'
+                    booleanParam 'MYLOTTO24_UK_LUCKY_STAR', false, 'Purchase Lucky Star (EML Club) and process the upcoming cycle'
 
                 }
 
@@ -41,6 +43,9 @@ jenkins {
                         fi
                         if $TIPP24_COM_LOTTO_SELECT; then
                           docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_lotto_select_test.py --exec docker --site COM --game lottoselect --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+                        if $MYLOTTO24_UK_LUCKY_STAR; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_eml_lucky_star_test --exec docker --site UK --game luckystar --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 
 					'''

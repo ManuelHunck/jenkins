@@ -1,0 +1,64 @@
+jenkins {
+    jobs {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_BACKEND_TEST_MULTIJOB" {
+            type "Multijob"
+            dsl {
+                description("""Daily test execution for testing current cs master with cara live version for the backend and frontend(triggered at 07.00 UTC)..
+				""")
+
+				    parameters {
+				    stringParam 'TESTSYSTEM', 'app-xxx-xxx.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
+                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
+                    stringParam 'CARA', 'latest', "Cara Version to Test"
+                    stringParam 'ALINGHI', 'latest', "Alinghi Version to Test"
+                    stringParam 'SERVICES', 'platform-dbg-smoketest', "if all services should be deployed -> team-specific"
+
+                    }
+
+                    concurrentBuild true
+
+                    steps {
+                       phase("Delete systems before creation to ensure there is nothing interrupting") {
+                                 phaseJob("DELETE_TESTSYSTEM"){
+                                          parameters{
+                                               predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
+                                          }
+                                 }
+
+                       }
+
+                       phase("Test system creation") {
+                                 phaseJob("CREATE_TESTSYSTEM"){
+                                          parameters{
+                                               predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
+                                               predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
+                                          }
+                                 }
+
+                       }
+
+                       phase("Test system deployment") {
+                                 phaseJob("DEPLOY_TESTSYSTEM"){
+                                            parameters{
+                                              predefinedProp("TESTSYSTEM", '$TESTSYSTEM')
+                                              predefinedProp('VERSION_ALINGHI', '$ALINGHI')
+                                              predefinedProp('VERSION_CARA', '$CARA')
+                                              predefinedProp('SERVICES', '$SERVICES')
+                                            }
+                                 }
+
+                       }
+
+
+                        logRotator(5, 5)
+
+                        wrappers {
+                            colorizeOutput()
+                            timestamps()
+                        }
+                    }
+                }
+            }
+        }
+
+    }
