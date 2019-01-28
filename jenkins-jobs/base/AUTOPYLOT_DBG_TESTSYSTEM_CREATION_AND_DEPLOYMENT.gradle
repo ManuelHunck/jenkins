@@ -1,17 +1,17 @@
 jenkins {
     jobs {
-        "${project.jenkinsJobName}_DBG_TESTSYSTEM_BACKEND_TEST_MULTIJOB" {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_CREATION_AND_DEPLOYMENT" {
             type "Multijob"
             dsl {
-                description("""Daily test execution for testing current cs master with cara live version for the backend and frontend(triggered at 07.00 UTC)..
+                description("""Job for easily create and deploy testsystems
 				""")
 
 				    parameters {
 				    stringParam 'TESTSYSTEM', 'app-xxx-xxx.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
-                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
+                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.2xlarge"', "Configuration of the AWS machine"
                     stringParam 'CARA', 'latest', "Cara Version to Test"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test"
-                    stringParam 'SERVICES', 'platform-dbg-smoketest', "if all services should be deployed -> team-specific"
+                    stringParam 'SERVICES', 'team-specific', "if all services should be deployed -> team-specific"
 
                     }
 

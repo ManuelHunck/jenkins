@@ -44,7 +44,7 @@ jenkins {
 					    export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.10
 					    
 						docker pull $CONTAINER
-					    sleep 30 # sleep 1 minute to give time to alinghi to start
+					    sleep 240 # sleep 4 minutes to give time to alinghi to start
                         if $INITIAL_TIMEJUMP; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/others/dbg_preparing_timejump.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
