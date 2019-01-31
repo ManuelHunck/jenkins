@@ -94,7 +94,7 @@ jenkins {
                        }
 
 
-                        logRotator(5, 5)
+                        logRotator(5, 15)
 
                         triggers {
                             cron('0 9 * * 1-5')
