@@ -10,7 +10,7 @@ jenkins {
 
 
 					booleanParam 'INITIAL_TIMEJUMP', true, 'Initial timejump'
-					booleanParam 'SYSTEMCHECK', true, 'Checks service status, disables TMS tasks'
+					booleanParam 'SYSTEMCHECK', false, 'Checks service status, disables TMS tasks'
 					booleanParam 'PRODUCT_AVAILABILITY', true, 'Check all tenants for active Products'
 					booleanParam 'UNPAID_CANCELLATION', true, 'Unpaid Cancellation triggered'
 					booleanParam 'PAID_CANCELLATION', true, 'Paid Cancellation triggered'
