@@ -8,7 +8,7 @@ jenkins {
 
 				    parameters {
 				    stringParam 'TESTSYSTEM', 'app-xxx-xxx.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
-                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.xlarge"', "Configuration of the AWS machine"
+                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.large"', "Configuration of the AWS machine"
                     stringParam 'CARA', 'latest', "Cara Version to Test"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test"
                     stringParam 'SERVICES', 'team-specific', "if all services should be deployed -> team-specific"

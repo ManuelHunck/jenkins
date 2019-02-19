@@ -24,6 +24,7 @@ jenkins {
 					booleanParam 'TIPP24_COM_MEGAMILLIONS', true, 'Purchase and Publish numbers and quotas'
 					booleanParam 'TIPP24_COM_EUROMILLIONS', true, 'Purchase and Publish numbers and quotas'
 					booleanParam 'TIPP24_COM_KENO', true, 'Purchase and Publish numbers and quotas'
+                    booleanParam 'TIPP24_COM_DISCOUNT_SERVICE_TEST', true, 'Set FEE and SUBSCRIPTION Discounts aincl check if applied'
 
 				}
 
@@ -40,7 +41,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.10
+                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.14
 
 						docker pull $CONTAINER
 
@@ -73,6 +74,9 @@ jenkins {
 						if $TIPP24_COM_KENO; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game keno --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
+						if $TIPP24_COM_DISCOUNT_SERVICE_TEST; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_discount_service_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
 					'''
                 }
 

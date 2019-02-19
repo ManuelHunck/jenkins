@@ -21,6 +21,7 @@ jenkins {
                     booleanParam 'MYLOTTO24_UK_IRISHLOTTO', true, 'Purchase and Publish numbers and quotas for Irish Lotto in UK'
 					booleanParam 'MYLOTTO24_IE_UKLOTTO', true, 'Purchase and Publish numbers and quotas for UK Lotto in IE'
 					booleanParam 'MYLOTTO24_RO_ROMANIANLOTTO', true, 'Purchase and Publish numbers and quotas for RomanianLotto in RO'
+                    booleanParam 'MYLOTTO24_COM_MEGAMILLIONS', true, 'Purchase and Publish numbers and quotas for MegaMillions on INT'
 
 				}
 
@@ -37,7 +38,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.10
+                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.14
 
 						docker pull $CONTAINER
 
