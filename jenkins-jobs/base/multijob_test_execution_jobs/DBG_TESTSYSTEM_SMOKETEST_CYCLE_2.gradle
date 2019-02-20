@@ -17,7 +17,7 @@ jenkins {
                     stringParam 'TESTSYSTEM', 'app-smoketest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
 
 					booleanParam 'SYSTEMCHECK', true, 'Checks service status, disables TMS tasks'
-                    booleanParam 'PRODUCT_AVAILABILITY', true, 'Check all tenants for active Products'
+                    booleanParam 'PRODUCT_AVAILABILITY', false, 'Check all tenants for active Products'
                     booleanParam 'UNPAID_CANCELLATION', true, 'Unpaid Cancellation triggered'
                     booleanParam 'PAID_CANCELLATION', true, 'Paid Cancellation triggered'
 					booleanParam 'TIPP24_COM_EUROJACKPOT_SUBSCRIPTION', true, 'Purchase Subscription, renewal, chancels in COM'

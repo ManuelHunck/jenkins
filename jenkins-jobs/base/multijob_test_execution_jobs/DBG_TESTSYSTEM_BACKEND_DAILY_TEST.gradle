@@ -13,13 +13,13 @@ jenkins {
 					booleanParam 'PRODUCT_AVAILABILITY', true, 'Check all tenants for active Products'
 					booleanParam 'UNPAID_CANCELLATION', true, 'Unpaid Cancellation triggered'
 					booleanParam 'PAID_CANCELLATION', true, 'Paid Cancellation triggered'
-					booleanParam 'TIPP24_COM_MEGAMILLIONS', true, 'Purchase and Publish numbers and quotas for Mega Millions'
+                    booleanParam 'TIPP24_COM_EUROMILLIONS', true, 'Purchase and Publish numbers and quotas for Euro Millions and EML Plus'
+                    booleanParam 'TIPP24_COM_LOTTO_6_AUS_49', true, 'Purchase and Publish numbers and quotas for Lotto 6 aus 49 including S6 and S77'
+                    booleanParam 'TIPP24_COM_MEGAMILLIONS', true, 'Purchase and Publish numbers and quotas for Mega Millions'
 					booleanParam 'TIPP24_COM_USPOWERBALL', true, 'Purchase and Publish numbers and quotas for US Power Ball'
 					booleanParam 'TIPP24_COM_CASH_4_LIFE', true, 'Purchase and Publish numbers and quotas for Cash 4 Life'
-					booleanParam 'TIPP24_COM_LOTTO_6_AUS_49', true, 'Purchase and Publish numbers and quotas for Lotto 6 aus 49 including S6 and S77'
 					booleanParam 'TIPP24_COM_GLS', true, 'Purchase and Publish numbers and quotas for Gluecksspirale including S6 and S77'
 					booleanParam 'TIPP24_COM_EUROJACKPOT', true, 'Purchase and Publish numbers and quotas for EuroJackpot without S6 and S77'
-					booleanParam 'TIPP24_COM_EUROMILLIONS', true, 'Purchase and Publish numbers and quotas for Euro Millions and EML Plus'
 					booleanParam 'TIPP24_COM_KENO', true, 'Purchase and Publish numbers and quotas for Keno and Plus5'
 					booleanParam 'MYLOTTO24_UK_IRISHLOTTO', true, 'Purchase and Publish numbers and quotas for Irish Lotto in UK'
 					booleanParam 'MYLOTTO24_IE_UKLOTTO', true, 'Purchase and Publish numbers and quotas for UK Lotto in IE'
@@ -44,12 +44,19 @@ jenkins {
 					    
 						docker pull $CONTAINER
 					    sleep 60 # sleep 1 minutes to give time to alinghi to start
-		                if $SYSTEMCHECK; then
+		             
+		                 if $SYSTEMCHECK; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_system_check.py --site COM --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $PRODUCT_AVAILABILITY; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/alinghi/api_tests_site_configuration.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
-						fi
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/alinghi/api_tests_site_configuration.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+                        if $UNPAID_CANCELLATION; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_unpaid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+                        if $PAID_CANCELLATION; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_paid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
 						if $TIPP24_COM_EUROMILLIONS; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_normal_euromillions_cycle_test.py --exec docker --site COM --game euromillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
