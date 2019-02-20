@@ -10,7 +10,7 @@ jenkins {
                     booleanParam 'DBG_SMOKE', true, 'Open each DBG ticket, do some checks and submit ticket to basket'
                     booleanParam 'DBG_TICKET_QUICKTIPPS', true, 'Test DBG ticket quicktipps'
                     booleanParam 'LC_SMOKE', false, 'Open LC lobby page, do some checks and submit ticket to basket'
-                    booleanParam 'CHECK_NUMBERS_QUOTAS', false, 'Check numbers and quotas for different tenants'
+                    booleanParam 'CHECK_NUMBERS_QUOTAS', true, 'Check numbers and quotas for different tenants'
                     booleanParam 'DBG_BASKET_QUICKTIPPS', true, 'Generates Basketquicktipps'
 
                 }

@@ -9,7 +9,6 @@ jenkins {
                     stringParam 'TESTSYSTEM', 'app-daily01-dbg.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
 
 
-					booleanParam 'INITIAL_TIMEJUMP', true, 'Initial timejump'
 					booleanParam 'SYSTEMCHECK', false, 'Checks service status, disables TMS tasks'
 					booleanParam 'PRODUCT_AVAILABILITY', true, 'Check all tenants for active Products'
 					booleanParam 'UNPAID_CANCELLATION', true, 'Unpaid Cancellation triggered'
@@ -41,13 +40,10 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-					    export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.14
+					    export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.15
 					    
 						docker pull $CONTAINER
-					    sleep 240 # sleep 4 minutes to give time to alinghi to start
-                        if $INITIAL_TIMEJUMP; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/others/dbg_preparing_timejump.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
-						fi
+					    sleep 60 # sleep 1 minutes to give time to alinghi to start
 		                if $SYSTEMCHECK; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_system_check.py --site COM --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi

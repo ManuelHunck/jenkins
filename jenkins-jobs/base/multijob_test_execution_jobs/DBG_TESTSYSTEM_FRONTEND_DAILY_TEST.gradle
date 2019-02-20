@@ -12,6 +12,7 @@ jenkins {
                     booleanParam 'LC_SMOKE', false, 'Open LC lobby page, do some checks and submit ticket to basket'
                     booleanParam 'DBG_QUICKTIPPS', true, 'Test DBG ticket quicktipps'
                     booleanParam 'DBG_BASKET_QUICKTIPPS', true, 'Test DBG basket quicktipps'
+                    booleanParam 'DBG_NUMBERS_AND_QUOTAS', false, 'Test DBG Numbers and quotas'
 
                 }
 
@@ -44,6 +45,10 @@ jenkins {
 						if $DBG_BASKET_QUICKTIPPS ; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/live_monitoring/dbg_frontend_multitenant_basket_quicktipp.py  --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
+						
+						if $DBG_NUMBERS_AND_QUOTAS ; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/live_monitoring/dbg_frontend_multitenant_basket_quicktipp.py  --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
 					'''
                 }
 

@@ -22,7 +22,7 @@ jenkins {
                     stringParam 'TESTSYSTEM', 'app-smoketest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
 
 					booleanParam 'SYSTEMCHECK', true, 'Checks service status, disables TMS tasks'
-					booleanParam 'PRODUCT_AVAILABILITY', false, 'Check all tenants for active Products'
+                    booleanParam 'PRODUCT_AVAILABILITY', true, 'Check all tenants for active Products'
                     booleanParam 'IWG_GAMES', true, 'Checks IWGs'
 					booleanParam 'TIPP24_COM_POWERBALL_SUBSCRIPTION', true, 'Purchase Subscription, renewal, chancels in COM'
 					booleanParam 'TIPP24_COM_LOTTO_6_AUS_49', true, 'Purchase and Publish numbers and quotas for Lotto 6 aus 49 including S6 and S77'
@@ -45,7 +45,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.14
+                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.15
 
 						docker pull $CONTAINER
 
