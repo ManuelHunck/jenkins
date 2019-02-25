@@ -6,18 +6,12 @@ jenkins {
                 description("""MultiJob triggering 3 Smoke Test sets, covering all products and ticket types and tenants...
 				""")
 
-				    parameters {
+                parameters {
+                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
                     stringParam 'CARA', 'latest', "Cara Version to Test, latest for live version"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test, latest for master"
                     stringParam 'SERVICES', 'platform-core-service-smoketest', "definition of the services deployed"
-                    stringParam 'ANSIBLE_VARIABLES',"""{
-                                                        |  "BACKOFFICE_VERSION": "latest",
-                                                        |  "BACKOFFICE_VERSION": "latest",
-                                                        |  "instance_type": "m5.4xlarge"
-                                                        |}""".stripMargin
-                                                        Collapse
-
-                    }
+                }
 
                     concurrentBuild true
 
