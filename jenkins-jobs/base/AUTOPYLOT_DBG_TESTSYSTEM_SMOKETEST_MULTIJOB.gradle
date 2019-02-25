@@ -7,11 +7,13 @@ jenkins {
 				""")
 
 				    parameters {
-                    stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
                     stringParam 'CARA', 'latest', "Cara Version to Test, latest for live version"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test, latest for master"
                     stringParam 'SERVICES', 'platform-core-service-smoketest', "definition of the services deployed"
-			    	}
+                    stringParam 'ANSIBLE_VARIABLES','instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
+                    stringParam 'ANSIBLE_VARIABLES','BACKOFFICE_VERSION: "latest"', "Backoffice Version used"
+                    stringParam 'ANSIBLE_VARIABLES','DISCOUNT_SERVICE_VERSION: "latest"', "Discount Service Version used"
+                    }
 
                     concurrentBuild true
 
@@ -39,11 +41,15 @@ jenkins {
                                           parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
                                                predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
+                                               predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
+                                               predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
                                           }
                                  }
                                  phaseJob("CREATE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                               predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
+                                               predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
                                                predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
                                           }
 
@@ -51,6 +57,8 @@ jenkins {
                                  phaseJob("CREATE_TESTSYSTEM"){
                                           parameters{
                                                predefinedProp("TESTSYSTEM", "app-smoketest03-dbg.test.t24.eu-west-1.sg-cloud.co.uk")
+                                               predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
+                                               predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
                                                predefinedProp('ANSIBLE_VARIABLES', '$ANSIBLE_VARIABLES')
                                           }
                                  }
