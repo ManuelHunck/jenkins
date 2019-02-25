@@ -15,7 +15,6 @@ jenkins {
                     stringParam 'TESTSYSTEM', 'app-smoketest03-dbg.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
 
                     booleanParam 'SYSTEMCHECK', true, 'Checks service status, disables TMS tasks'
-					booleanParam 'PRODUCT_AVAILABILITY', false, 'Check all tenants for active Products'
 					booleanParam 'QUICKTIPP_TEST', true, 'Checking if the quicktipp api for cara is working'
                     booleanParam 'TIPP24_COM_MAGIC_SEVEN', true, 'Purchase, process and termintes the subscription Magic Seven and process the upcoming week incl basic winning check'
                     booleanParam 'MYLOTTO24_UK_IRISHLOTTO', true, 'Purchase and Publish numbers and quotas for Irish Lotto in UK'
@@ -38,7 +37,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.15
+                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.16
 
 						docker pull $CONTAINER
 
@@ -46,9 +45,6 @@ jenkins {
 
 			            if $SYSTEMCHECK; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_system_check.py --site COM --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
-						fi
-						if $PRODUCT_AVAILABILITY; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/alinghi/api_tests_site_configuration.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $QUICKTIPP_TEST; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/alinghi/api_tests_quicktipp_tests.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
