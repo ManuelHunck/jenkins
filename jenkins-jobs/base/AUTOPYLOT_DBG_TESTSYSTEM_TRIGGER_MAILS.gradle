@@ -1,0 +1,49 @@
+jenkins {
+    jobs {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_PROCESSING" {
+            dsl {
+                description("""This Job triggers for a selected tenant all normal DBG's a complete week incl purchase and winnings from Monday to Sunday
+				""")
+
+                parameters {
+
+
+                    stringParam 'TESTSYSTEM', 'app-02-dbg.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
+                    stringParam 'EMAIL', 'DBGParty@gmail.com', "This Adress will recievie all the Mails"
+
+                    booleanParam 'DBGS_COM', false, 'Purchase and Process all DBGS on COM'
+
+                }
+
+                concurrentBuild true
+
+
+                steps {
+                    shell '''
+					    mkdir -p $PWD/$BUILD_TAG
+					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
+					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
+
+						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
+
+						if $ROMANIAN_LOTTO_JACKPOT ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/Process_and_purchase_a_whole_week.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --site COM --core $TESTSYSTEM
+						fi
+
+					'''
+                }
+
+                logRotator(5, 5)
+
+                publishers {
+                    archiveArtifacts('$BUILD_TAG/**/*')
+                }
+
+                wrappers {
+                    colorizeOutput()
+                    timestamps()
+                }
+            }
+        }
+    }
+}
