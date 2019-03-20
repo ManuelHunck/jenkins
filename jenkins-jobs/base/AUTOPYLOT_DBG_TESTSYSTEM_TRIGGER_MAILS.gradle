@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "${project.jenkinsJobName}_DBG_TESTSYSTEM_PROCESSING" {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_TRIGGER_MAILS" {
             dsl {
                 description("""This Job triggers for a selected tenant all normal DBG's a complete week incl purchase and winnings from Monday to Sunday
 				""")
@@ -12,7 +12,8 @@ jenkins {
                     stringParam 'EMAIL', 'DBGParty@gmail.com', "This Adress will recievie all the Mails"
 
                     booleanParam 'DBGS_COM', false, 'Purchase and Process all DBGS on COM'
-
+                    booleanParam 'DBGS_UK', false, 'Purchase and Process all DBGS on COM'
+                    booleanParam 'DBGS_IE', false, 'Purchase and Process all DBGS on COM'
                 }
 
                 concurrentBuild true
@@ -26,10 +27,16 @@ jenkins {
 
 						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
 
-						if $ROMANIAN_LOTTO_JACKPOT ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/Process_and_purchase_a_whole_week.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --site COM --core $TESTSYSTEM
+						if $DBGS_COM ; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_complete_week_by_tenant/dbg_backend_complete_week_COM.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --site COM --core $TESTSYSTEM
 						fi
-
+                        if $DBGS_UK ; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_complete_week_by_tenant/dbg_backend_complete_week_UK.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --site UK --core $TESTSYSTEM
+                        fi
+                        if $DBGS_IE ; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_complete_week_by_tenant/dbg_backend_complete_week_IE.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --site IE --core $TESTSYSTEM
+                        fi
+                        
 					'''
                 }
 

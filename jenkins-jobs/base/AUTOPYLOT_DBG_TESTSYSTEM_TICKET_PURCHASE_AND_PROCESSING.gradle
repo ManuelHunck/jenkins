@@ -32,9 +32,9 @@ jenkins {
                     booleanParam 'TIPP24_COM_EUROJACKPOT_SUBSCRIPTION', false, 'Publish numbers and quotas for EuroJackpot without S6 and S77'
                     booleanParam 'TIPP24_COM_KENO_SUBSCRIPTION', false, 'Publish numbers and quotas for Keno and Plus5'
                     booleanParam 'TIPP24_COM_GERMANLOTTO_SUBSCRIPTION', false, 'Publish numbers and quotas for German Lotto'
-                    booleanParam 'MEGAMILLIONS', false, 'Publish numbers and quotas for Mega Millions'
-                    booleanParam 'USPOWERBALL', false, 'Publish numbers and quotas for US Power Ball'
-                    booleanParam 'EUROJACKPOT', false, 'Publish numbers and quotas for EuroJackpot without S6 and S77'
+                    booleanParam 'TIPP24_COM_MEGAMILLIONS_JACKPOTHUNTER', false, 'Purchase Jackpothunter Publish numbers and quotas for Mega Millions'
+                    booleanParam 'TIPP24_COM_USPOWERBALL_JACKPOTHUNTER', false, 'Purchase Jackpothunter Publish numbers and quotas for US Power Ball'
+                    booleanParam 'TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER', false, 'Purchase Jackpothunter Publish numbers and quotas for EuroJackpot without S6 and S77'
                 }
 
                 concurrentBuild true
@@ -113,13 +113,13 @@ jenkins {
 						if $TIPP24_COM_GERMANLOTTO_SUBSCRIPTION; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_german_lotto_subscription_cycle_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
-						if $MEGAMILLIONS; then
+						if $TIPP24_COM_MEGAMILLIONS_JACKPOTHUNTER; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_jackpothunter_cycle_test.py --exec docker --site COM --game megamillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
-						if $USPOWERBALL; then
+						if $TIPP24_COM_USPOWERBALL_JACKPOTHUNTER; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_jackpothunter_cycle_test.py --exec docker --site COM --game powerball --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
-						if $EUROJACKPOT; then
+						if $TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_jackpothunter_cycle_test.py --exec docker --site COM --game eurojackpot --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 					'''
