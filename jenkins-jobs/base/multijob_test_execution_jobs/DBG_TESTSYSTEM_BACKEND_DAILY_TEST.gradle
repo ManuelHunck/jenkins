@@ -24,7 +24,9 @@ jenkins {
 					booleanParam 'MYLOTTO24_IE_UKLOTTO', true, 'Purchase and Publish numbers and quotas for UK Lotto in IE'
 					booleanParam 'MYLOTTO24_RO_ROMANIANLOTTO', true, 'Purchase and Publish numbers and quotas for RomanianLotto in RO'
 					booleanParam 'TIPP24_COM_MEGAMILLIONS_SUBSCRIPTION', true, 'Purchase Subscription, renewal, chancels in COM'
-				}
+                    booleanParam 'TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER', true, 'Purchase and Publish and process Eruojackpot Jackpothunter'
+
+                }
 
                 concurrentBuild true
 
@@ -39,7 +41,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-					    export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.16
+					    export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.17
 					    
 						docker pull $CONTAINER
 					    sleep 60 # sleep 1 minutes to give time to alinghi to start
@@ -89,6 +91,9 @@ jenkins {
 						if $MYLOTTO24_RO_ROMANIANLOTTO; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site RO --game bonoromanianlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
+					    if $TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_jackpothunter_cycle_test.py --exec docker --site COM --game eurojackpot --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
 					'''
                 }
 
