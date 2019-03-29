@@ -28,13 +28,13 @@ jenkins {
 						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
 
 						if $DBGS_COM ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_complete_week_by_tenant/dbg_backend_complete_week_COM.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --site COM --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_complete_week_by_tenant/dbg_backend_complete_week_COM.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --core $TESTSYSTEM
 						fi
                         if $DBGS_UK ; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_complete_week_by_tenant/dbg_backend_complete_week_UK.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --site UK --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_complete_week_by_tenant/dbg_backend_complete_week_UK.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --core $TESTSYSTEM
                         fi
                         if $DBGS_IE ; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_complete_week_by_tenant/dbg_backend_compete_week_IE.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --site IE --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_complete_week_by_tenant/dbg_backend_compete_week_IE.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --email $EMAIL --core $TESTSYSTEM
                         fi
                         
 					'''
