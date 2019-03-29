@@ -26,7 +26,7 @@ jenkins {
 					booleanParam 'TIPP24_COM_EUROMILLIONS', true, 'Purchase and Publish numbers and quotas'
 					booleanParam 'TIPP24_COM_KENO', true, 'Purchase and Publish numbers and quotas'
                     booleanParam 'TIPP24_COM_DISCOUNT_SERVICE_TEST', true, 'Set FEE and SUBSCRIPTION Discounts aincl check if applied'
-                    booleanParam 'TIPP24_COM_USPOWERBALL_JACKPOTHUNTER', true, 'Purchase and Publish and process Eruojackpot Jackpothunter'
+                    booleanParam 'TIPP24_COM_USPOWERBALL_JACKPOTHUNTER', false, 'Purchase and Publish and process Eruojackpot Jackpothunter'
 
 
                 }
