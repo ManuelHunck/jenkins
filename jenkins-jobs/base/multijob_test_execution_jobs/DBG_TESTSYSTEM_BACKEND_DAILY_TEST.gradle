@@ -23,8 +23,8 @@ jenkins {
 					booleanParam 'MYLOTTO24_UK_IRISHLOTTO', true, 'Purchase and Publish numbers and quotas for Irish Lotto in UK'
 					booleanParam 'MYLOTTO24_IE_UKLOTTO', true, 'Purchase and Publish numbers and quotas for UK Lotto in IE'
 					booleanParam 'MYLOTTO24_RO_ROMANIANLOTTO', true, 'Purchase and Publish numbers and quotas for RomanianLotto in RO'
-					booleanParam 'TIPP24_COM_MEGAMILLIONS_SUBSCRIPTION', true, 'Purchase Subscription, renewal, chancels in COM'
-                    booleanParam 'TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER', true, 'Purchase and Publish and process Eruojackpot Jackpothunter'
+					booleanParam 'TIPP24_COM_MEGAMILLIONS_SUBSCRIPTION', false, 'Purchase Subscription, renewal, chancels in COM'
+                    booleanParam 'TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER', false, 'Purchase and Publish and process Eruojackpot Jackpothunter'
 
                 }
 
