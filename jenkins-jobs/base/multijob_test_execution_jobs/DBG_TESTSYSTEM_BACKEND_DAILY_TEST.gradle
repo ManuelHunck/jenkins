@@ -12,7 +12,7 @@ jenkins {
 					booleanParam 'SYSTEMCHECK', false, 'Checks service status, disables TMS tasks'
 					booleanParam 'UNPAID_CANCELLATION', true, 'Unpaid Cancellation triggered'
 					booleanParam 'PAID_CANCELLATION', true, 'Paid Cancellation triggered'
-                    booleanParam 'TIPP24_COM_EUROMILLIONS', true, 'Purchase and Publish numbers and quotas for Euro Millions and EML Plus'
+                    booleanParam 'TIPP24_COM_EUROMILLIONS', false, 'Purchase and Publish numbers and quotas for Euro Millions and EML Plus'
                     booleanParam 'TIPP24_COM_LOTTO_6_AUS_49', true, 'Purchase and Publish numbers and quotas for Lotto 6 aus 49 including S6 and S77'
                     booleanParam 'TIPP24_COM_MEGAMILLIONS', true, 'Purchase and Publish numbers and quotas for Mega Millions'
 					booleanParam 'TIPP24_COM_USPOWERBALL', true, 'Purchase and Publish numbers and quotas for US Power Ball'
@@ -24,7 +24,7 @@ jenkins {
 					booleanParam 'MYLOTTO24_IE_UKLOTTO', true, 'Purchase and Publish numbers and quotas for UK Lotto in IE'
 					booleanParam 'MYLOTTO24_RO_ROMANIANLOTTO', true, 'Purchase and Publish numbers and quotas for RomanianLotto in RO'
 					booleanParam 'TIPP24_COM_MEGAMILLIONS_SUBSCRIPTION', false, 'Purchase Subscription, renewal, chancels in COM'
-                    booleanParam 'TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER', false, 'Purchase and Publish and process Eruojackpot Jackpothunter'
+                    booleanParam 'TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER', true, 'Purchase and Publish and process Eruojackpot Jackpothunter'
 
                 }
 
@@ -41,7 +41,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-					    export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.17
+					    export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.20
 					    
 						docker pull $CONTAINER
 					    sleep 60 # sleep 1 minutes to give time to alinghi to start

@@ -23,10 +23,10 @@ jenkins {
 					booleanParam 'TIPP24_COM_EUROJACKPOT_SUBSCRIPTION', true, 'Purchase Subscription, renewal, chancels in COM'
 					booleanParam 'TIPP24_COM_POWERBALL', true, 'Purchase and Publish numbers and quotas '
 					booleanParam 'TIPP24_COM_MEGAMILLIONS', true, 'Purchase and Publish numbers and quotas'
-					booleanParam 'TIPP24_COM_EUROMILLIONS', true, 'Purchase and Publish numbers and quotas'
+					booleanParam 'TIPP24_COM_EUROMILLIONS', false, 'Purchase and Publish numbers and quotas'
 					booleanParam 'TIPP24_COM_KENO', true, 'Purchase and Publish numbers and quotas'
                     booleanParam 'TIPP24_COM_DISCOUNT_SERVICE_TEST', true, 'Set FEE and SUBSCRIPTION Discounts aincl check if applied'
-                    booleanParam 'TIPP24_COM_USPOWERBALL_JACKPOTHUNTER', false, 'Purchase and Publish and process Eruojackpot Jackpothunter'
+                    booleanParam 'TIPP24_COM_USPOWERBALL_JACKPOTHUNTER', true, 'Purchase and Publish and process Eruojackpot Jackpothunter'
 
 
                 }
@@ -44,7 +44,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.17
+                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.20
 
 						docker pull $CONTAINER
 

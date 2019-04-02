@@ -29,7 +29,7 @@ jenkins {
 					booleanParam 'TIPP24_COM_GLS', true, 'Purchase and Publish numbers and quotas for Gluecksspirale including S6 and S77'
 					booleanParam 'TIPP24_COM_EUROJACKPOT', true, 'Purchase and Publish numbers and quotas for EuroJackpot without S6 and S77'
 					booleanParam 'TIPP24_COM_CASH_4_LIFE', true, 'Purchase and Publish numbers and quotas'
-                    booleanParam 'TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER', false, 'Purchase and Publish and process Eruojackpot Jackpothunter'
+                    booleanParam 'TIPP24_COM_EUROJACKPOT_JACKPOTHUNTER', true, 'Purchase and Publish and process Eruojackpot Jackpothunter'
 				}
 
                 concurrentBuild true
@@ -45,7 +45,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.17
+                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.20
 
 						docker pull $CONTAINER
 
