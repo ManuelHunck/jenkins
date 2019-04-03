@@ -10,6 +10,8 @@ jenkins {
                     stringParam 'ANSIBLE_VARIABLES', 'instance_type: "m5.4xlarge"', "Configuration of the AWS machine"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test, latest for master"
                     stringParam 'SERVICES', 'platform-core-service-smoketest', "definition of the services deployed"
+                    stringParam 'PLATFORM_PULL_REQUEST', '', "definition of the services deployed"
+
                 }
 
                     concurrentBuild true
@@ -61,6 +63,7 @@ jenkins {
                                               predefinedProp('TESTSYSTEM', 'app-smoketest01-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
                                               predefinedProp('SERVICES', '$SERVICES')
+                                              predefinedProp('PLATFORM_PULL_REQUEST', '$PLATFORM_PULL_REQUEST')
                                             }
                                  }
                                  phaseJob("DEPLOY_TESTSYSTEM"){
@@ -68,6 +71,7 @@ jenkins {
                                               predefinedProp('TESTSYSTEM', 'app-smoketest02-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
                                               predefinedProp('SERVICES', '$SERVICES')
+                                              predefinedProp('PLATFORM_PULL_REQUEST', '$PLATFORM_PULL_REQUEST')
                                             }
                                  }
                                  phaseJob("DEPLOY_TESTSYSTEM"){
@@ -75,6 +79,7 @@ jenkins {
                                               predefinedProp('TESTSYSTEM', 'app-smoketest03-dbg.test.t24.eu-west-1.sg-cloud.co.uk')
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
                                               predefinedProp('SERVICES', '$SERVICES')
+                                              predefinedProp('PLATFORM_PULL_REQUEST', '$PLATFORM_PULL_REQUEST')
                                             }
                                  }
                        }

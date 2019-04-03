@@ -11,6 +11,7 @@ jenkins {
                     stringParam 'CARA', 'latest', "Cara Version to Test"
                     stringParam 'ALINGHI', 'latest', "Alinghi Version to Test"
                     stringParam 'SERVICES', 'team-specific', "default = all, needed here!"
+                    stringParam 'PLATFORM_PULL_REQUEST', '', "definition of the services deployed"
 
                     }
 
@@ -52,6 +53,7 @@ jenkins {
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
                                               predefinedProp('VERSION_CARA', '$CARA')
                                               predefinedProp('SERVICES', '$SERVICES')
+                                              predefinedProp('PLATFORM_PULL_REQUEST', '$PLATFORM_PULL_REQUEST')
 
                                             }
                                  }
@@ -61,6 +63,7 @@ jenkins {
                                               predefinedProp('VERSION_ALINGHI', '$ALINGHI')
                                               predefinedProp('VERSION_CARA', '$CARA')
                                               predefinedProp('SERVICES', '$SERVICES')
+                                              predefinedProp('PLATFORM_PULL_REQUEST', '$PLATFORM_PULL_REQUEST')
 
                                             }
                                  }

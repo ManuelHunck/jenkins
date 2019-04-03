@@ -11,8 +11,10 @@ jenkins {
                     stringParam 'ALINGHI', '', "Alinghi Version to Test, latest for current master"
                     stringParam 'TESTSYSTEM', '', "Test system URL (without 'http://', without trailing '/')"
                     stringParam 'SERVICES', '', "definition of the services deployed"
+                    stringParam 'PLATFORM_PULL_REQUEST', '', "for special PLATTfoem PR's"
 
-			    	}
+
+                    }
 
                     concurrentBuild true
 
@@ -22,6 +24,7 @@ jenkins {
                                            parameter('VERSION_ALINGHI', '$ALINGHI')
                                            parameter('VERSION_CARA', '$CARA')
                                            parameter('SERVICES', '$SERVICES')
+                                           parameter('PLATFORM_PULL_REQUEST', '$PLATFORM_PULL_REQUEST')
                                            blockBuildUntilComplete()
                             }
 
