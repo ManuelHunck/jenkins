@@ -51,7 +51,7 @@ jenkins {
                 logRotator(5, 198)
 
                 triggers {
-                    cron('H/30 * * * *')
+                    cron('H/60 * * * *')
                 }
 
                 publishers {
