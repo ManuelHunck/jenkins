@@ -22,7 +22,7 @@ jenkins {
 
                             shell '''
 wget -O live-versions.sh https://srv-git-01-hh1.alinghi.tipp24.net/raw/games/games-jenkins-jobs/master/live-versions.sh
-bash live-versions.sh "core-services-internal\|cara" versions.properties
+bash live-versions.sh "core-services-internal\\|cara" versions.properties
 '''
 			    environmentVariables {
                                     propertiesFile('versions.properties')
