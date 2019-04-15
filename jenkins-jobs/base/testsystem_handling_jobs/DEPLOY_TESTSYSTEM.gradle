@@ -19,12 +19,22 @@ jenkins {
                     concurrentBuild true
 
                     steps {
+
+                            shell '''
+wget -O live-versions.sh https://srv-git-01-hh1.alinghi.tipp24.net/raw/games/games-jenkins-jobs/master/live-versions.sh
+bash live-versions.sh "core-services-internal\|cara" versions.properties
+'''
+			    environmentVariables {
+                                    propertiesFile('versions.properties')
+                            }
+
                             remoteTrigger('platform jenkins', 'DEPLOY_TEST_AWS_ALL__WITH_DOCKER_DB') {
                                            parameter('TESTSYSTEM', '$TESTSYSTEM')
                                            parameter('VERSION_ALINGHI', '$ALINGHI')
                                            parameter('VERSION_CARA', '$CARA')
                                            parameter('SERVICES', '$SERVICES')
                                            parameter('PLATFORM_PULL_REQUEST', '$PLATFORM_PULL_REQUEST')
+                                           parameter('ANSIBLE_VARIABLES', '${LIVE_VERSIONS}')
                                            blockBuildUntilComplete()
                             }
 
