@@ -1,0 +1,69 @@
+jenkins {
+    jobs {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_DISCOUNT_SERVICE_TESTS" {
+            dsl {
+                description("""Different Testsuits for...
+                            <li>- Discount Service multitests</li>
+                            <li>- Fee and Value Discounts</li>
+                            <li>- Fee Discounts</li>
+                            <li>- Subscription discounts</li>
+                            <li>- Value Discounts</li>
+                            <li>with German Lotto</li>
+				""")
+
+                parameters {
+                    stringParam 'TESTSYSTEM', 'app-XX-XXX.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
+
+                    booleanParam 'TIPP24_COM_DISCOUNT_TEST', false, 'Create a valig German Lotto discount and edit this one later on.'
+                    booleanParam 'TIPP24_COM_COMBINED_FEE_AND_VALUE_DISCOUNT', false, 'Purchase a created Fee and Value discount (German Lotto)'
+                    booleanParam 'TIPP24_COM_FEE_DISCOUNT', false, 'Purchase a created Fee discount (German Lotto)'
+                    booleanParam 'TIPP24_COM_VALUE_DISCOUNT', false, 'Purchase a created Value discount (German Lotto)'
+                    booleanParam 'TIPP24_COM_SUBSCRIPTION_DISCOUNT', false, 'Purchase a created Subscription discount (German Lotto)'
+
+                }
+
+                concurrentBuild true
+
+
+                steps {
+                    shell '''
+					    mkdir -p $PWD/$BUILD_TAG
+					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
+					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
+
+						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
+
+						if $TIPP24_COM_DISCOUNT_TEST; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_discount_service_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $TIPP24_COM_COMBINED_FEE_AND_VALUE_DISCOUNT; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_fee_and_value_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+                        if $TIPP24_COM_FEE_DISCOUNT; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_fee_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+                        if $TIPP24_COM_VALUE_DISCOUNT; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_value_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+                        if $TIPP24_COM_SUBSCRIPTION_DISCOUNT; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_subscription_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+
+					'''
+                }
+
+                logRotator(5, 15)
+
+
+                publishers {
+                    archiveArtifacts('$BUILD_TAG/**/*')
+                }
+
+                wrappers {
+                    colorizeOutput()
+                    timestamps()
+                }
+            }
+        }
+    }
+}
