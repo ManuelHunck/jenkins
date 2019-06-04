@@ -22,6 +22,8 @@ jenkins {
                     booleanParam 'EUROMILLIONS', false, 'Publish the numbers 1, 2, 3, 4, 5 + 1, 9 and quotas for Euro Millions and EML Plus'
                     booleanParam 'IRISHLOTTO', false, 'Publish the numbers 1, 2, 3, 4, 5, 6 + 7  and quotas for Irish Lotto including Plus1, Plus and Raffle'
                     booleanParam 'KENO', false, 'Publish the numbers 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 and quotas for Keno and Plus5'
+                    booleanParam '$DAILYMILLION', false, 'Publish the numbers 1, 2, 3, 4, 5, 6 and quotas for DailyMillion and DailyMillionPlus'
+
 
                     choiceParam('RENEWALSTATUS', ['unknown', 'true', 'false'])
                     booleanParam 'ROMANIAN_LOTTO_JACKPOT', false, 'Enter jackpot for <b>Romanian Lotto</b>'
@@ -132,7 +134,10 @@ jenkins {
 						if $KENO; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game keno --site COM  --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
-
+						
+                        if $DAILYMILLION; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game dailymillion --site IE  --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
 					'''
                 }
 
