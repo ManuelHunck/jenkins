@@ -60,7 +60,7 @@ jenkins {
                           docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_paid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 					    if $TIPP24_COM_EUROJACKPOT_SUBSCRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game eurojackpot --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/test_subscriptions/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game eurojackpot --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_POWERBALL; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game powerball --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM

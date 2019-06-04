@@ -93,25 +93,25 @@ jenkins {
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site RO --game bonoromanianlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 				        if $TIPP24_COM_MEGAMILLIONS_SUBSCRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game megamillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game megamillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_USPOWERBALL_SUBSCRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game powerball --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game powerball --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 					    if $TIPP24_COM_CASH_4_LIFE_SUBSCRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game cash4life --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game cash4life --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_GLS_SUBSCRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game gluecksspirale --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game gluecksspirale --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_EUROJACKPOT_SUBSCRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game eurojackpot --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game eurojackpot --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_KENO_SUBSCRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game keno --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game keno --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_GERMANLOTTO_SUBSCRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_german_lotto_subscription_cycle_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_backend_german_lotto_subscription_cycle_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_MEGAMILLIONS_JACKPOTHUNTER; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_jackpothunter_cycle_test.py --exec docker --site COM --game megamillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
