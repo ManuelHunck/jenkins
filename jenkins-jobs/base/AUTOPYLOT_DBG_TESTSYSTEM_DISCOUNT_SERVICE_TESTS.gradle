@@ -14,7 +14,7 @@ jenkins {
                 parameters {
                     stringParam 'TESTSYSTEM', 'app-XX-XXX.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
 
-                    booleanParam 'TIPP24_COM_DISCOUNT_TEST', false, 'Create a valig German Lotto discount and edit this one later on.'
+                    booleanParam 'TIPP24_COM_DISCOUNT_TEST', false, 'Create a valid German Lotto discount and edit this one later on.'
                     booleanParam 'TIPP24_COM_COMBINED_FEE_AND_VALUE_DISCOUNT', false, 'Purchase a created Fee and Value discount (German Lotto)'
                     booleanParam 'TIPP24_COM_FEE_DISCOUNT', false, 'Purchase a created Fee discount (German Lotto)'
                     booleanParam 'TIPP24_COM_VALUE_DISCOUNT', false, 'Purchase a created Value discount (German Lotto)'

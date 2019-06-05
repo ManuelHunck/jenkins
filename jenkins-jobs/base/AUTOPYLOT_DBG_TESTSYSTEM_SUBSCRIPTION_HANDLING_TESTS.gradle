@@ -1,0 +1,54 @@
+jenkins {
+    jobs {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_SUBSCRIPTION_HANDLING_TESTS.gradle" {
+            dsl {
+                description("""Different Testsuits for...
+                            <li>- Simple Test of a migration</li>
+                            <li>- Migrate a longer running subscription</li>
+				""")
+
+                parameters {
+                    stringParam 'TESTSYSTEM', 'app-XX-XXX.test.t24.eu-west-1.sg-cloud.co.uk', "Test system URL (without 'http://', without trailing '/')"
+
+                    booleanParam 'TIPP24_COM_MIGRATE_SUBSRIPTION', false, 'Migrate an existing non dltb subscription (cash4life) to an dltb subscription (eurojackpot).'
+                    booleanParam 'TIPP24_COM_MIGRATE_LONGER_RUNNING_SUBSCRIPTION', false, 'Migrate an existing non dltb subscription(cash4life) to an dltb subscription (eurojackpot) after a few renewals'
+
+                }
+
+                concurrentBuild true
+
+
+                steps {
+                    shell '''
+					    mkdir -p $PWD/$BUILD_TAG
+					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
+					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
+
+						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
+
+						if $TIPP24_COM_MIGRATE_SUBSRIPTION; then
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_migration_of_subscriptions_test.py --exec docker --site COM --game cash4life --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						fi
+						if $TIPP24_COM_MIGRATE_LONGER_RUNNING_SUBSCRIPTION; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_backend_migration_for_longer_subscriptions_test.py --exec docker --site COM --game cash4life --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        fi
+
+
+					'''
+                }
+
+                logRotator(5, 15)
+
+
+                publishers {
+                    archiveArtifacts('$BUILD_TAG/**/*')
+                }
+
+                wrappers {
+                    colorizeOutput()
+                    timestamps()
+                }
+            }
+        }
+    }
+}
