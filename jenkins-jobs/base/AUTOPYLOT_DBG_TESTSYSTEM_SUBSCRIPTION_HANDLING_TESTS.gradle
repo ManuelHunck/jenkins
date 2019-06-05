@@ -1,6 +1,6 @@
 jenkins {
     jobs {
-        "${project.jenkinsJobName}_DBG_TESTSYSTEM_SUBSCRIPTION_HANDLING_TESTS.gradle" {
+        "${project.jenkinsJobName}_DBG_TESTSYSTEM_SUBSCRIPTION_HANDLING_TESTS" {
             dsl {
                 description("""Different Testsuits for...
                             <li>- Simple Test of a migration</li>
