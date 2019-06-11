@@ -10,7 +10,6 @@ jenkins {
 
 
 					booleanParam 'SYSTEMCHECK', false, 'Checks service status, disables TMS tasks'
-					booleanParam 'UNPAID_CANCELLATION', true, 'Unpaid Cancellation triggered'
 					booleanParam 'PAID_CANCELLATION', true, 'Paid Cancellation triggered'
                     booleanParam 'TIPP24_COM_EUROMILLIONS', false, 'Purchase and Publish numbers and quotas for Euro Millions and EML Plus'
                     booleanParam 'TIPP24_COM_LOTTO_6_AUS_49', true, 'Purchase and Publish numbers and quotas for Lotto 6 aus 49 including S6 and S77'
@@ -49,9 +48,6 @@ jenkins {
 		                 if $SYSTEMCHECK; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_system_check.py --site COM --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
-                        if $UNPAID_CANCELLATION; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_unpaid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
-                        fi
                         if $PAID_CANCELLATION; then
                           docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_paid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
