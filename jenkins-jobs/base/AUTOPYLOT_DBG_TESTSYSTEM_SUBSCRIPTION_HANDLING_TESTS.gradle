@@ -27,10 +27,10 @@ jenkins {
 						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
 
 						if $TIPP24_COM_MIGRATE_SUBSRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_migration_of_subscriptions_test.py --exec docker --site COM --game cash4life --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_subscriptions/dbg_migration_of_subscriptions_test.py --exec docker --site COM --game cash4life --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_MIGRATE_LONGER_RUNNING_SUBSCRIPTION; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_subscriptions/dbg_backend_migration_for_longer_subscriptions_test.py --exec docker --site COM --game cash4life --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_subscriptions/dbg_backend_migration_for_longer_subscriptions_test.py --exec docker --site COM --game cash4life --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 
 

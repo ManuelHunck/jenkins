@@ -57,86 +57,86 @@ jenkins {
 						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
 
 						if $ROMANIAN_LOTTO_JACKPOT ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game bonoromanianlotto --site RO --renewalstatus $RENEWALSTATUS --jackpot $EUROJACKPOT_JACKPOT_AMOUNT --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game bonoromanianlotto --site RO --renewalstatus $RENEWALSTATUS --jackpot $EUROJACKPOT_JACKPOT_AMOUNT --core $TESTSYSTEM
 						fi
 
 						if $UK_LOTTO_JACKPOT ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --browser chrome --game uklotto --site COM --renewalstatus $RENEWALSTATUS --jackpot $EUROJACKPOT_JACKPOT_AMOUNT --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --browser chrome --game uklotto --site COM --renewalstatus $RENEWALSTATUS --jackpot $EUROJACKPOT_JACKPOT_AMOUNT --core $TESTSYSTEM
 						fi
 
 						if $EUROJACKPOT_JACKPOT ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game eurojackpot --site COM --renewalstatus $RENEWALSTATUS --jackpot $EUROJACKPOT_JACKPOT_AMOUNT --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game eurojackpot --site COM --renewalstatus $RENEWALSTATUS --jackpot $EUROJACKPOT_JACKPOT_AMOUNT --core $TESTSYSTEM
 						fi
 
 						if $EUROMILLIONS_JACKPOT ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game euromillions --site COM --jackpot $EUROMILLIONS_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game euromillions --site COM --jackpot $EUROMILLIONS_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
 						fi
 
 						if $LOTTO_JACKPOT ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game germanlotto --site COM --jackpot $LOTTO_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_set_jackpot.py  --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game germanlotto --site COM --jackpot $LOTTO_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
 						fi
 
 						if $IRISH_LOTTO_JACKPOT ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game irishlotto --site COM --jackpot $IRISH_LOTTO_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_set_jackpot.py --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game irishlotto --site COM --jackpot $IRISH_LOTTO_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
 						fi
 
 						if $MEGAMILLIONS_JACKPOT ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game megamillions --site COM --jackpot $MEGAMILLIONS_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_set_jackpot.py --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game megamillions --site COM --jackpot $MEGAMILLIONS_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
 						fi
 
 						if $POWERBALL_JACKPOT ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_set_jackpot.py --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game powerball --site COM --jackpot $POWERBALL_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_set_jackpot.py --jenkins $BUILD_URL --exec docker --host $TESTSYSTEM --browser chrome --game powerball --site COM --jackpot $POWERBALL_JACKPOT_AMOUNT --renewalstatus $RENEWALSTATUS --core $TESTSYSTEM
 						fi
 
 						if $MEGAMILLIONS; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game megamillions --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game megamillions --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 
 						if $ROMANIAN_LOTTO; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game bonoromanianlotto --site RO --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game bonoromanianlotto --site RO --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 
 						if $USPOWERBALL; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game powerball --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game powerball --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 
 						if $CASH_4_LIFE; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game cash4life --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game cash4life --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						
                         if $LOTTO_6_AUS_49; then 
-                        docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game germanlotto --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                        docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game germanlotto --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         
 						if $GLUECKSSPIRALE; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game gluecksspirale --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game gluecksspirale --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						
 						if $GLUECKSSPIRALE_ONLY; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game gluecksspirale_only --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game gluecksspirale_only --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 						if $EUROJACKPOT; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game eurojackpot --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game eurojackpot --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 
 						if $EUROMILLIONS; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game euromillions --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game euromillions --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 
 						if $IRISHLOTTO; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game irishlotto --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game irishlotto --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 
 						if $UK_LOTTO; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game uklotto --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game uklotto --site COM --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 
 						if $KENO; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game keno --site COM  --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game keno --site COM  --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						
                         if $DAILYMILLION; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/dbg_processing.py --exec docker --browser chrome --game dailymillion --site IE  --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/dbg_processing.py --exec docker --browser chrome --game dailymillion --site IE  --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 					'''
                 }

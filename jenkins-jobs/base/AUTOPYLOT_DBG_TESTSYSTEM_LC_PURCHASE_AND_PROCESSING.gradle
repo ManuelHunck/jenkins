@@ -33,19 +33,19 @@ jenkins {
 						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
 
 						if $TIPP24_COM_MAGIC_SEVEN; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_magic_seven_test.py --exec docker --site COM --game magicseven --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_magic_seven_test.py --exec docker --site COM --game magicseven --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_JACKPOT_DUO; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_jackpot_duo_test.py --exec docker --site COM --game jackpotduo --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_jackpot_duo_test.py --exec docker --site COM --game jackpotduo --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         if $TIPP24_COM_LOTTO_START; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_lotto_start_test.py --exec docker --site COM --game lottostart --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_lotto_start_test.py --exec docker --site COM --game lottostart --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         if $TIPP24_COM_LOTTO_SELECT; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_lotto_select_test.py --exec docker --site COM --game lottoselect --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_lotto_select_test.py --exec docker --site COM --game lottoselect --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         if $MYLOTTO24_UK_LUCKY_STAR; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_eml_lucky_star_test.py --exec docker --site UK --game luckystar --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_lottery_clubs/dbg_backend_lc_eml_lucky_star_test.py --exec docker --site UK --game luckystar --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 
 					'''

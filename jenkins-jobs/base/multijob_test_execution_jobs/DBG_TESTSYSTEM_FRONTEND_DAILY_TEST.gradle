@@ -31,23 +31,23 @@ jenkins {
 
 
 						if $DBG_SMOKE ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/live_monitoring/dbg_frontend_multitenant_smoketest.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/live_monitoring/dbg_frontend_multitenant_smoketest.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
 						fi
 
                         if $LC_SMOKE ; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/live_monitoring/dbg_frontend_lotteryclub_smoketest.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/live_monitoring/dbg_frontend_lotteryclub_smoketest.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
                         fi
 
 						if $DBG_QUICKTIPPS ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/live_monitoring/dbg_frontend_multitenant_ticket_quicktipp.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/live_monitoring/dbg_frontend_multitenant_ticket_quicktipp.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
 						fi
 
 						if $DBG_BASKET_QUICKTIPPS ; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/live_monitoring/dbg_frontend_multitenant_basket_quicktipp.py  --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/live_monitoring/dbg_frontend_multitenant_basket_quicktipp.py  --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
 						fi
 						
 						if $DBG_NUMBERS_AND_QUOTAS ; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/live_monitoring/dbg_frontend_multitenant_basket_quicktipp.py  --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/live_monitoring/dbg_frontend_multitenant_basket_quicktipp.py  --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM  --browser chrome
                         fi
 					'''
                 }

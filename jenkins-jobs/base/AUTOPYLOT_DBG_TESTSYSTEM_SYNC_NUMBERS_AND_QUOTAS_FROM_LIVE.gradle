@@ -26,15 +26,15 @@ jenkins {
 						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
 
 						if $SYNC_NUMBERS ; then
-						  docker run --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/copy_dbg_results_from_live_to_testsystem.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/copy_dbg_results_from_live_to_testsystem.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 
 						if $SYNC_QUOTAS; then
-						  docker run --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/copy_dbg_quotas_from_live_to_testsystem.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/copy_dbg_quotas_from_live_to_testsystem.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 
 						if $SYNC_JACKPOTS; then
-						  docker run --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/others/copy_dbg_jackpots_from_live_to_testsystem.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/others/copy_dbg_jackpots_from_live_to_testsystem.py --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 
 

@@ -44,41 +44,41 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.27
+                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.28
 
 						docker pull $CONTAINER
 
 					    sleep 30 # sleep 0,5 minutes to give time to alinghi to start
 
 			            if $SYSTEMCHECK; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_system_check.py --site COM --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_system_check.py --site COM --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $UNPAID_CANCELLATION; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_unpaid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_unpaid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         if $PAID_CANCELLATION; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_paid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_paid_cancellation_test.py --site COM  --game powerball --exec docker --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 					    if $TIPP24_COM_EUROJACKPOT_SUBSCRIPTION; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/test_subscriptions/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game eurojackpot --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/test_subscriptions/dbg_backend_subscription_ticket_cycle_test.py --exec docker --site COM --game eurojackpot --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_POWERBALL; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game powerball --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game powerball --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_MEGAMILLIONS; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game megamillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game megamillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_EUROMILLIONS; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game euromillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game euromillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_KENO; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game keno --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game keno --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_DISCOUNT_SERVICE_TEST; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER tests/dbg/test_scenarios/test_discount_service/dbg_backend_discount_service_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/test_discount_service/dbg_backend_discount_service_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         if $TIPP24_COM_USPOWERBALL_JACKPOTHUNTER; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=256m  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/dbg_backend_jackpothunter_cycle_test.py --exec docker --site COM --game powerball --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_jackpothunter_cycle_test.py --exec docker --site COM --game powerball --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 					'''
                 }

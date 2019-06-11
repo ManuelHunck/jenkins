@@ -34,19 +34,19 @@ jenkins {
 						docker pull devservices01.office.tipp24.de:5000/awint/autopylot
 
 						if $TIPP24_COM_DISCOUNT_TEST; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_discount_service_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_discount_service/dbg_backend_discount_service_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $TIPP24_COM_COMBINED_FEE_AND_VALUE_DISCOUNT; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_fee_and_value_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_discount_service/dbg_backend_fee_and_value_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         if $TIPP24_COM_FEE_DISCOUNT; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_fee_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_discount_service/dbg_backend_fee_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         if $TIPP24_COM_VALUE_DISCOUNT; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_value_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_discount_service/dbg_backend_value_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         if $TIPP24_COM_SUBSCRIPTION_DISCOUNT; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot tests/dbg/test_scenarios/test_discount_service/dbg_backend_subscription_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  devservices01.office.tipp24.de:5000/awint/autopylot python tests/dbg/test_scenarios/test_discount_service/dbg_backend_subscription_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
 
 					'''
