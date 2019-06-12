@@ -19,7 +19,6 @@ jenkins {
                     booleanParam 'TIPP24_COM_MAGIC_SEVEN', true, 'Purchase, process and termintes the subscription Magic Seven and process the upcoming week incl basic winning check'
                     booleanParam 'MYLOTTO24_UK_IRISHLOTTO', true, 'Purchase and Publish numbers and quotas for Irish Lotto in UK'
 					booleanParam 'MYLOTTO24_IE_UKLOTTO', true, 'Purchase and Publish numbers and quotas for UK Lotto in IE'
-					booleanParam 'MYLOTTO24_RO_ROMANIANLOTTO', true, 'Purchase and Publish numbers and quotas for RomanianLotto in RO'
                     booleanParam 'MYLOTTO24_COM_MEGAMILLIONS', true, 'Purchase and Publish numbers and quotas for MegaMillions on INT'
 
 				}
@@ -57,9 +56,6 @@ jenkins {
 						fi
 					    if $MYLOTTO24_IE_UKLOTTO; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site IE --game uklotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
-						fi
-						if $MYLOTTO24_RO_ROMANIANLOTTO; then
-						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site RO --game bonoromanianlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
 						if $MYLOTTO24_COM_MEGAMILLIONS; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site INT --game megamillions --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
