@@ -43,7 +43,7 @@ jenkins {
 					    mkdir -p $PWD/$BUILD_TAG
 					    mkdir -p $PWD/$BUILD_TAG/test_run_results_html
 					    mkdir -p $PWD/$BUILD_TAG/test_run_screenshots
-                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.28
+                        export CONTAINER=devservices01.office.tipp24.de:5000/awint/autopylot:1.0.30
 
 						docker pull $CONTAINER
 
