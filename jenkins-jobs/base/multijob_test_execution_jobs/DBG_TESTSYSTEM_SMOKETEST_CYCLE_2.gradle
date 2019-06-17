@@ -24,7 +24,7 @@ jenkins {
 					booleanParam 'TIPP24_COM_MEGAMILLIONS', true, 'Purchase and Publish numbers and quotas'
 					booleanParam 'TIPP24_COM_EUROMILLIONS', false, 'Purchase and Publish numbers and quotas'
 					booleanParam 'TIPP24_COM_KENO', true, 'Purchase and Publish numbers and quotas'
-                    booleanParam 'TIPP24_COM_DISCOUNT_SERVICE_TEST', true, 'Set FEE and SUBSCRIPTION Discounts aincl check if applied'
+                    booleanParam 'TIPP24_COM_SUBSCRIPTION_DISCOUNT', true, 'Set FEE and SUBSCRIPTION Discounts aincl check if applied'
                     booleanParam 'TIPP24_COM_USPOWERBALL_JACKPOTHUNTER', true, 'Purchase and Publish and process Eruojackpot Jackpothunter'
 
 
@@ -70,8 +70,8 @@ jenkins {
 						if $TIPP24_COM_KENO; then
 						  docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_normal_ticket_cycle_test.py --exec docker --site COM --game keno --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
 						fi
-						if $TIPP24_COM_DISCOUNT_SERVICE_TEST; then
-                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/test_discount_service/dbg_backend_discount_service_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
+						if $TIPP24_COM_SUBSCRIPTION_DISCOUNT; then
+                          docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/test_discount_service/dbg_backend_subscription_discount_test.py --exec docker --site COM --game germanlotto --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
                         fi
                         if $TIPP24_COM_USPOWERBALL_JACKPOTHUNTER; then
                           docker run -v $PWD/$BUILD_TAG:/usr/src/app/test_results --rm --shm-size=1g  $CONTAINER python tests/dbg/test_scenarios/dbg_backend_jackpothunter_cycle_test.py --exec docker --site COM --game powerball --host $TESTSYSTEM --jenkins $BUILD_URL --core $TESTSYSTEM
